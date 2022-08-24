@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508.16 417.54">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fbc813;
+        font-size: 228px;
+      }
+
+      .cls-1, .cls-2 {
+        font-family: FrenchFries-Regular, 'French Fries';
+      }
+
+      .cls-2 {
+        fill: #3cceee;
+        font-size: 212px;
+      }
+    </style>
+  </defs>
+  <text class="cls-2" transform="translate(0 180.2)"><tspan x="0" y="0">BRUIN</tspan></text>
+  <text class="cls-1" transform="translate(.77 364.87)"><tspan x="0" y="0">BITES</tspan></text>
+</svg>
