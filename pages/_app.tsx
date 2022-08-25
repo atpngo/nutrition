@@ -1,8 +1,13 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import NavBar from '../components/NavBar'
+import {useRouter} from 'next/router';
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  const router = useRouter();
+  const showNavBar = router.pathname === '/' ? false : true;
   return(
     <>
       <Head>
@@ -12,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
         <link rel="manifest" href="/site.webmanifest"/>
       </Head>
+      {showNavBar && <NavBar/>}
       <Component {...pageProps} />
     </>
   ) 

@@ -16,12 +16,20 @@ const Button = styled.button`
     box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     color: ${props => props.color};
     border-color: ${props => props.color};
+
     background: -webkit-linear-gradient(0deg, transparent 50%, ${props => props.color} 50%);
-    background-size: 500px 100%;
+    background: -webkit-linear-gradient(transparent 50%, ${props => props.color} 50%);
+    // background-size: 500px 100%;
+    // top-bottom
+    background-size: 250px 150px;
     transition: 0.6s;
 
     &:hover {
-        background-position: 250px 0;
+        // left
+        // background-position: 250px 0;
+        // top
+        background-position: 0 75px;
+
         color: white;
         transform: scale(1.1);
 
