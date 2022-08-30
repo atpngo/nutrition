@@ -11,6 +11,13 @@ const diets = [
     {label: 'Pescatarian', value: 'pescatarian'},
 ]
 
+const allergies = [
+    {label: 'N/A', value: 'none'},
+    {label: 'Peanut', value: 'peanut'},
+    {label: 'Gluten', value: 'gluten'},
+    {label: 'Egg', value: 'egg'},
+]
+
 const Profile = () => {
     const {data: session} = useSession();
     
@@ -66,6 +73,10 @@ const Profile = () => {
                     <CustomSelect options={diets}/>
                 </div>
 
+                <div className='flex flex-col'>
+                    <label className='generic-label'>Allergies</label>
+                    <CustomSelect options={allergies} multiselect={true}/>
+                </div>
 
 
 
