@@ -1,8 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
-* {
-  font-family: 'Inter', sans-serif;
+
+@layer base {
+  html {
+    font-family: 'Rubik', sans-serif;
+  }
+}
+
+
+.generic-input {  
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-primary-blue focus:border-primary-blue block w-full p-2.5 text-center shadow-sm
+}
+
+.generic-sublabel {
+  @apply block font-medium text-lg text-gray-900
+}
+
+.generic-label {
+  @apply block mb-1 text-sm font-medium text-gray-900
 }
