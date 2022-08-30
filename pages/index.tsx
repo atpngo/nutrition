@@ -2,6 +2,7 @@ import SlidingButton from '../components/SlidingButton'
 import { useSession, signIn, signOut, getProviders } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export default function Home() {
 

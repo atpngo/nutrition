@@ -10,14 +10,14 @@ function CustomSelect({options})
 
     useEffect(() => {
         console.log(options);
-    }, [])
+    }, [options])
 
     return (
         <div className="">
             <select className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500" aria-label="Default select example">
                 {options.map(
                     (option) => {
-                        return (<option value={option.value}>{option.label}</option>)
+                        return (<option key={option.value} value={option.value}>{option.label}</option>)
                     }
                 )}
             </select>
