@@ -1,13 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-
 
 @layer base {
   html {
     font-family: 'Rubik', sans-serif;
   }
+}
+
+.generic-btn {
+  @apply border-2 border-gray-400 rounded-lg px-14 py-4
+}
+
+.generic-btn:active {
+  @apply border-pink-800
 }
 
 

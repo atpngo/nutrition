@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import Select from "react-select";
 import SlidingButton from "../components/SlidingButton";
 import CustomSelect from "../components/CustomSelect";
@@ -16,6 +16,31 @@ const allergies = [
     {label: 'Peanut', value: 'peanut'},
     {label: 'Gluten', value: 'gluten'},
     {label: 'Egg', value: 'egg'},
+    {label: 'Peanut', value: 'peanut2'},
+    {label: 'Gluten', value: 'gluten2'},
+    {label: 'Egg', value: 'egg2'},
+    {label: 'Peanut', value: 'peanut3'},
+    {label: 'Gluten', value: 'gluten3'},
+    {label: 'Egg', value: 'egg3'},
+    {label: 'Peanut', value: 'peanut4'},
+    {label: 'Gluten', value: 'gluten4'},
+    {label: 'Egg', value: 'egg4'},
+]
+
+const activityLevels = [
+    {label: 'Sedentary: little or no exercise', value: 'sedentary'},
+    {label: 'Light: exercise 1-3 times/week', value: 'light'},
+    {label: 'Moderate: exercise 4-5 times/week', value: 'moderate'},
+    {label: 'Active: daily exercise or intense exercise 3-4 times/week', value: 'active'},
+    {label: 'Very Active: intense exercise 6-7 times/week', value: 'very_active'},
+    {label: 'Extra Active: very intense exercise daily, or physical job', value: 'extra_active'},
+]
+
+const goals = [
+    {label: 'Bulking', value: 'bulking'},
+    {label: 'Maintaining', value: 'maintaining'},
+    {label: 'Cutting', value: 'cutting'},
+
 ]
 
 const Profile = () => {
@@ -26,8 +51,10 @@ const Profile = () => {
     {
         return (
             <div className="p-4 flex flex-col gap-4 mb-16">
-                <p className="text-4xl text-primary-blue font-semibold">Personal Info</p>
-                
+                <div className="flex justify-between">
+                    <p className="text-4xl text-primary-blue font-semibold">Profile</p>
+                    <button className="text-lg text-primary-blue" onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Log Out</button>
+                </div>
                 {/* profile section */}
                 <div className="flex gap-3 justify-center">
                     <img className="h-21 rounded-full" src={session.user.image} alt="Rounded avatar"/>
@@ -38,10 +65,10 @@ const Profile = () => {
                 </div>
 
                 {/* male female buttons */}
-                <div className="flex gap-5">
+                <div className="flex gap-5 justify-center">
                     {/* replace these (look into radio buttons) */}
-                    <SlidingButton color="gray" border='3px'>MALE</SlidingButton>
-                    <SlidingButton color="gray" border='3px'>FEMALE</SlidingButton>
+                    <button className="generic-btn">Male</button>
+                    <button className="generic-btn">Female</button>
                 </div>
 
                 {/* Age */}
@@ -73,23 +100,24 @@ const Profile = () => {
                     <CustomSelect options={diets}/>
                 </div>
 
-                <div className='flex flex-col'>
+                {/* Allergies */}
+                {/* <div className='flex flex-col'>
                     <label className='generic-label'>Allergies</label>
                     <CustomSelect options={allergies} multiselect={true}/>
+                </div> */}
+
+                {/* Activity Level */}
+                <div className='flex flex-col'>
+                    <label className='generic-label'>Activity Level</label>
+                    <CustomSelect options={activityLevels}/>
                 </div>
 
+                {/* Goals */}
                 <div className='flex flex-col'>
-                    <label className='generic-label'>Allergies</label>
-                    <CustomSelect options={allergies} multiselect={true}/>
+                    <label className='generic-label'>Goals</label>
+                    <CustomSelect options={goals}/>
                 </div>
-                <div className='flex flex-col'>
-                    <label className='generic-label'>Allergies</label>
-                    <CustomSelect options={allergies} multiselect={true}/>
-                </div>
-                <div className='flex flex-col'>
-                    <label className='generic-label'>Allergies</label>
-                    <CustomSelect options={allergies} multiselect={true}/>
-                </div>
+
 
 
             </div>
