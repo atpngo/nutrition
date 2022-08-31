@@ -8,7 +8,7 @@ const MenusPage: NextPage = () => {
     return(
         <Wrapper title={"Menus"}>
             <div className="flex flex-col items-center">
-                Hello from the menu page
+                Menus from dining halls here
             </div>
         </Wrapper>
     )

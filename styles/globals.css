@@ -8,6 +8,15 @@
   }
 }
 
+img {
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
 .generic-btn {
   @apply border-2 border-gray-400 rounded-lg px-14 py-4
 }
@@ -18,7 +27,7 @@
 
 
 .generic-input {  
-  @apply bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-primary-blue focus:border-primary-blue block w-full p-2.5 text-center shadow-sm
+  @apply bg-white border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-primary-blue focus:border-primary-blue block w-full p-2.5 text-center shadow-sm py-1
 }
 
 .generic-sublabel {

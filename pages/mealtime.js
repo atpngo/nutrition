@@ -1,13 +1,14 @@
 import Wrapper from "../components/Wrapper";
 
-const Macros = () => {
-    return (
-        <Wrapper title={"Macronutrients"}>
+function Mealtime()
+{
+    return(
+        <Wrapper title={"Mealtime"}>
             <div className="flex flex-col items-center">
-                macronutrients here
+                Meal planner here
             </div>
         </Wrapper>
     )
 }
 
-export default Macros;
+export default Mealtime;

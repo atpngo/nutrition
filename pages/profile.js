@@ -4,6 +4,8 @@ import SlidingButton from "../components/SlidingButton";
 import CustomSelect from "../components/CustomSelect";
 import { motion } from "framer-motion";
 import Wrapper from "../components/Wrapper";
+import { useEffect } from "react";
+import Image from "next/image";
 
 
 const genders = [
@@ -53,6 +55,9 @@ const goals = [
 const Profile = () => {
     const {data: session} = useSession();
     
+    useEffect(() => {
+        console.log(session);
+    }, [])
     
     if (session)
     {
@@ -60,7 +65,7 @@ const Profile = () => {
             <Wrapper title={"Profile"}>
                 {/* profile section */}
                 <div className="flex gap-3 justify-center">
-                    <img className="h-21 rounded-full" src={session.user.image} alt="Rounded avatar"/>
+                    <img className="h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
                     <div className="flex flex-col justify-center gap-2">
                         <p className="text-xl font-medium">{session.user.name}</p>
                         <p className="text-lg">{session.user.email}</p>

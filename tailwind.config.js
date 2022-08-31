@@ -13,6 +13,9 @@ module.exports = {
       },
       fontFamily: {
         'rubik': ['Rubik', 'sans-serif']
+      },
+      width: {
+        'fooditem': '250px'
       }
     },
   
