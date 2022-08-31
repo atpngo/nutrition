@@ -1,10 +1,10 @@
-
+import Wrapper from "../components/Wrapper";
 
 const Macros = () => {
     return (
-        <div>
-            Hey there from macros
-        </div>
+        <Wrapper title={"Macronutrients"}>
+            <div>hey there</div>
+        </Wrapper>
     )
 }
 

@@ -2,7 +2,14 @@ import { useSession, signOut } from "next-auth/react"
 import Select from "react-select";
 import SlidingButton from "../components/SlidingButton";
 import CustomSelect from "../components/CustomSelect";
+import { motion } from "framer-motion";
+import Wrapper from "../components/Wrapper";
 
+
+const genders = [
+    {label: 'Male', value: 'male'},
+    {label: 'Female', value: 'female'},
+]
 
 const diets = [
     {label: 'N/A', value: 'none'},
@@ -50,11 +57,7 @@ const Profile = () => {
     if (session)
     {
         return (
-            <div className="p-4 flex flex-col gap-4 mb-16">
-                <div className="flex justify-between">
-                    <p className="text-4xl text-primary-blue font-semibold">Profile</p>
-                    <button className="text-lg text-primary-blue" onClick={() => signOut({callbackUrl: `${window.location.origin}`})}>Log Out</button>
-                </div>
+            <Wrapper title={"Profile"}>
                 {/* profile section */}
                 <div className="flex gap-3 justify-center">
                     <img className="h-21 rounded-full" src={session.user.image} alt="Rounded avatar"/>
@@ -64,11 +67,10 @@ const Profile = () => {
                     </div>
                 </div>
 
-                {/* male female buttons */}
-                <div className="flex gap-5 justify-center">
-                    {/* replace these (look into radio buttons) */}
-                    <button className="generic-btn">Male</button>
-                    <button className="generic-btn">Female</button>
+                {/* Gender */}
+                <div className="flex flex-col">
+                    <label className="generic-label">Gender</label>
+                    <CustomSelect options={genders}/>
                 </div>
 
                 {/* Age */}
@@ -119,8 +121,10 @@ const Profile = () => {
                 </div>
 
 
-
-            </div>
+                <div className='flex justify-center'>
+                    <motion.button whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue'>SAVE CHANGES</motion.button>
+                </div>
+            </Wrapper>
         )
     }
     else

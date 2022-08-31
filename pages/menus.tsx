@@ -1,14 +1,16 @@
 import { NextPage } from "next";
 import { useEffect } from "react";
+import Wrapper from "../components/Wrapper";
 
 const MenusPage: NextPage = () => {
-    useEffect(() => {
-        console.log("i am at menus page")
-    }, [])
+
+
     return(
-        <div className="flex flex-col items-center">
-            Hello from the menu page
-        </div>
+        <Wrapper title={"Menus"}>
+            <div className="flex flex-col items-center">
+                Hello from the menu page
+            </div>
+        </Wrapper>
     )
 }
 
