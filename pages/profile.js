@@ -25,7 +25,7 @@ const Profile = () => {
     if (session)
     {
         return (
-            <div className="p-4 flex flex-col gap-4">
+            <div className="p-4 flex flex-col gap-4 mb-16">
                 <p className="text-4xl text-primary-blue font-semibold">Personal Info</p>
                 
                 {/* profile section */}
@@ -78,6 +78,18 @@ const Profile = () => {
                     <CustomSelect options={allergies} multiselect={true}/>
                 </div>
 
+                <div className='flex flex-col'>
+                    <label className='generic-label'>Allergies</label>
+                    <CustomSelect options={allergies} multiselect={true}/>
+                </div>
+                <div className='flex flex-col'>
+                    <label className='generic-label'>Allergies</label>
+                    <CustomSelect options={allergies} multiselect={true}/>
+                </div>
+                <div className='flex flex-col'>
+                    <label className='generic-label'>Allergies</label>
+                    <CustomSelect options={allergies} multiselect={true}/>
+                </div>
 
 
             </div>

@@ -5,7 +5,7 @@ const NavBar = () => {
     const {data: session} = useSession();
 
     return (
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-primary-blue">
+        <div className="fixed inset-x-0 bottom-0 h-16 bg-primary-blue">
             <div className="flex flex-row gap-3">
                 <Link href="/">HOME</Link>
                 <Link href="/menus">Menus</Link>

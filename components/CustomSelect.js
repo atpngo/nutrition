@@ -14,7 +14,7 @@ function CustomSelect({options, multiselect})
 
     return (
         <div className="">
-            <select className={`${multiselect ? 'form-multiselect' : ''} w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500`} aria-label="Default select example">
+            <select multiple={multiselect} className={"w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500"} aria-label="Default select example">
                 {options.map(
                     (option) => {
                         return (<option key={option.value} value={option.value}>{option.label}</option>)
