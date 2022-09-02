@@ -37,7 +37,7 @@ function FoodItem({imgUrl, name, nutrition})
                         {/* Protein */}
                         <div className="flex items-center gap-1">
                             <GiMeat color="#84FA70"/>
-                            <p className="text-gray-500">{nutrition.protein}g</p>
+                            <p className="text-gray-500">{nutrition.protein}</p>
                         </div>
                     </div>
 
@@ -47,12 +47,12 @@ function FoodItem({imgUrl, name, nutrition})
                         {/* Carbs */}
                         <div className="flex items-center gap-1">
                             <FaBreadSlice color="#D382FA"/>
-                            <p className="text-gray-500">{nutrition.carbohydrates}g</p>
+                            <p className="text-gray-500">{nutrition.total_carbohydrate}</p>
                         </div>
                         {/* Fat */}
                         <div className="flex items-center gap-1">
                             <GiAvocado color="#F1DA9E"/>
-                            <p className="text-gray-500">{nutrition.fats}g</p>
+                            <p className="text-gray-500">{nutrition.total_fat}</p>
                         </div>
                     </div> 
                     </div>
