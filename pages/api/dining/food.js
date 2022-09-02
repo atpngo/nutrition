@@ -64,7 +64,7 @@ export default async function getInfo(req, res)
                             nutrition["sugars"] = nutritionArray[1]
                         case 8:
                             nutrition["protein"] = nutritionArray[1]
-                        }   
+                    } 
                 }
             )
             // console.log(nutrition)

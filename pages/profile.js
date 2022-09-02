@@ -1,11 +1,9 @@
-import { useSession, signOut } from "next-auth/react"
-import Select from "react-select";
-import SlidingButton from "../components/SlidingButton";
+import { getSession, useSession  } from "next-auth/react"
 import CustomSelect from "../components/CustomSelect";
+import CustomInput from "../components/CustomInput";
 import { motion } from "framer-motion";
 import Wrapper from "../components/Wrapper";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import axios from "axios";
 
 const genders = [
@@ -52,93 +50,145 @@ const goals = [
 
 ]
 
-const Profile = () => {
+const Profile = (props) => {
     const {data: session} = useSession();
+    const [userData, setUserData] = useState({});
 
     const [editing, setEditing] = useState(false);
+
+    const saveChanges = async () => 
+    {
+        try 
+        {
+            axios.post('/api/user/update', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email, payload: userData})
+            .then(
+                res => console.log(res)
+            )
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+        
+
+    }
     
 
     useEffect(() => {
-        axios.post("/api/dining/menu", {
-            "dining_hall": "DeNeve",
-            "meal_period": "Lunch"
+        // am i supposed to put this in serversideprops
+        getSession().then(
+            session =>
+            {
+                axios.post('/api/user/get', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email})
+                .then(
+                    res => {
+                        // user doesn't exist
+                        if (res.data.data === null)
+                        {
+                            axios.post('/api/user/create', {key: process.env.NEXT_PUBLIC_SECRET_KEY, payload: {email: session.user.email}})
+                            .then(
+                                createRes => setUserData(createRes.data.data)
+                            )
+                            .catch(
+                                err => console.error(err)
+                            )
+                        }
+                        else
+                        {
+                            setUserData(res.data.data);
+                        }
+                    }
+                )
+                .catch(
+                    err => console.error(err)
+                )
+            }
+        )
+        .catch(err => {
+            console.log(err);
         })
-        .then(res => console.log(res))
+        
     }, [])
     
     if (session)
     {
         return (
             <Wrapper title={"Profile"}>
-                {/* profile section */}
-                <div className="flex gap-3 justify-center">
-                    <img className="w-20 h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
-                    <div className="flex flex-col justify-center gap-2">
-                        <p className="text-xl font-medium">{session.user.name}</p>
-                        <p className="text-lg">{session.user.email}</p>
+                <div className="flex justify-center">
+                <div className="flex flex-col max-w-xl gap-4">
+                    {/* profile section */}
+                    <div className="flex gap-3 justify-center">
+                        <img className="w-20 h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
+                        <div className="flex flex-col justify-center gap-2">
+                            <p className="text-xl font-medium">{session.user.name}</p>
+                            <p className="text-lg">{session.user.email}</p>
+                        </div>
+                    </div>
+
+                    {/* Gender */}
+                    <div className="flex flex-col">
+                        <label className="generic-label">Gender</label>
+                        <CustomSelect value={userData['gender']} setData={setUserData} target={"gender"} disabled={!editing} options={genders}/>
+                    </div>
+
+                    {/* Age */}
+                    <div className="flex flex-col">
+                        <label className="generic-label">Age (years)</label>
+                        <CustomInput value={userData['age']} setData={setUserData} target={"age"} disabled={!editing}/>
+                    </div>
+
+                    {/* Weight */}
+                    <div className="flex flex-col">
+                        <label className="generic-label">Weight (lbs)</label>
+                        <CustomInput value={userData['weight']} setData={setUserData} target={"weight"} disabled={!editing}/>
+                    </div>
+
+                    {/* height  */}
+                    <div className='flex flex-col'>
+                        <label className="generic-label">Height</label>
+                        <div className='flex items-center gap-2'>
+                            <CustomInput value={userData['height_ft']} setData={setUserData} target={"height_ft"} disabled={!editing}/>
+                            <label htmlFor="height_ft" className="generic-sublabel">ft</label>
+                            <CustomInput value={userData['height_in']} setData={setUserData} target={"height_in"} disabled={!editing}/>
+                            <label htmlFor="height_in" className="generic-sublabel">in</label>
+                        </div>
+                    </div>
+
+                    {/* Dietary Restrictions */}
+                    <div className='flex flex-col'>
+                        <label className='generic-label'>Diet</label>
+                        <CustomSelect value={userData['diet']} setData={setUserData} target={"diet"}  disabled={!editing} options={diets}/>
+                    </div>
+
+                    {/* Allergies */}
+                    {/* <div className='flex flex-col'>
+                        <label className='generic-label'>Allergies</label>
+                        <CustomSelect options={allergies} multiselect={true}/>
+                    </div> */}
+
+                    {/* Activity Level */}
+                    <div className='flex flex-col'>
+                        <label className='generic-label'>Activity Level</label>
+                        <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/>
+                    </div>
+
+                    {/* Goals */}
+                    <div className='flex flex-col'>
+                        <label className='generic-label'>Goals</label>
+                        <CustomSelect value={userData['goals']} setData={setUserData} target={"goals"} disabled={!editing} options={goals}/>
+                    </div>
+
+
+                    <div className='flex justify-center'>
+                        {editing ? 
+                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false); saveChanges();}}>SAVE CHANGES</motion.button>
+                            :
+                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {setEditing(true)}}>EDIT</motion.button>
+                        }
+                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {console.log(userData)}}>DEBUG</motion.button>
+
                     </div>
                 </div>
-
-                {/* Gender */}
-                <div className="flex flex-col">
-                    <label className="generic-label">Gender</label>
-                    <CustomSelect disabled={!editing} options={genders}/>
-                </div>
-
-                {/* Age */}
-                <div className="flex flex-col">
-                    <label className="generic-label">Age (years)</label>
-                    <input disabled={!editing} type="number" id="age" onWheel={(e) => {e.target.blur()}} className="generic-input" required/>
-                </div>
-
-                {/* Weight */}
-                <div className="flex flex-col">
-                    <label className="generic-label">Weight (lbs)</label>
-                    <input disabled={!editing} type="number" id="weight" onWheel={(e) => {e.target.blur()}} className="generic-input" required/>
-                </div>
-
-                {/* height  */}
-                <div className='flex flex-col'>
-                    <label className="generic-label">Height</label>
-                    <div className='flex items-center gap-2'>
-                        <input disabled={!editing} type="number" id="height_ft" onWheel={(e) => {e.target.blur()}} className="generic-input" required/>
-                        <label htmlFor="height_ft" className="generic-sublabel">ft</label>
-                        <input disabled={!editing} type="number" id="height_in" onWheel={(e) => {e.target.blur()}} className="generic-input" required/>
-                        <label htmlFor="height_in" className="generic-sublabel">in</label>
-                    </div>
-                </div>
-
-                {/* Dietary Restrictions */}
-                <div className='flex flex-col'>
-                    <label className='generic-label'>Diet</label>
-                    <CustomSelect disabled={!editing} options={diets}/>
-                </div>
-
-                {/* Allergies */}
-                {/* <div className='flex flex-col'>
-                    <label className='generic-label'>Allergies</label>
-                    <CustomSelect options={allergies} multiselect={true}/>
-                </div> */}
-
-                {/* Activity Level */}
-                <div className='flex flex-col'>
-                    <label className='generic-label'>Activity Level</label>
-                    <CustomSelect disabled={!editing} options={activityLevels}/>
-                </div>
-
-                {/* Goals */}
-                <div className='flex flex-col'>
-                    <label className='generic-label'>Goals</label>
-                    <CustomSelect disabled={!editing} options={goals}/>
-                </div>
-
-
-                <div className='flex justify-center'>
-                    {editing ? 
-                        <motion.button whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false)}}>SAVE CHANGES</motion.button>
-                        :
-                        <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {setEditing(true)}}>EDIT</motion.button>
-                    }
                 </div>
             </Wrapper>
         )
@@ -152,3 +202,8 @@ const Profile = () => {
 }
 
 export default Profile;
+
+// export async function getServerSideProps(context) 
+// {
+
+// }
