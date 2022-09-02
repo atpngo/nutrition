@@ -6,6 +6,9 @@ function Mealtime()
         <Wrapper title={"Mealtime"}>
             <div className="flex flex-col items-center">
                 Meal planner here
+                <div className="border-4 border-blue-200 py-[700px] w-full">
+
+                </div>
             </div>
         </Wrapper>
     )
