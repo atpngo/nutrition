@@ -52,7 +52,16 @@ const goals = [
 
 const Profile = (props) => {
     const {data: session} = useSession();
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState({
+        'height_ft': '',
+        'height_in': '',
+        'age': '',
+        'gender': 'null',
+        'weight': '',
+        'diet': 'null',
+        'activity': 'null',
+        'goals': 'null'
+    });
 
     const [editing, setEditing] = useState(false);
 
@@ -75,7 +84,6 @@ const Profile = (props) => {
     
 
     useEffect(() => {
-        // am i supposed to put this in serversideprops
         getSession().then(
             session =>
             {
@@ -205,5 +213,42 @@ export default Profile;
 
 // export async function getServerSideProps(context) 
 // {
-
-// }
+//     return {props: await getSession().then(
+//         session =>
+//         {
+//             fetch('/api/user/get', 
+//             {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body:JSON.stringify({key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email})
+//             }
+//             )
+//             .then(
+//                 res => {
+//                     // user doesn't exist
+//                     if (res.data.data === null)
+//                     {
+//                         fetch('/api/user/create', 
+//                         {
+//                             method: 'POST',
+//                             headers: {
+//                                 'Content-Type': 'application/json'
+//                             },
+//                             body:JSON.stringify({key: process.env.NEXT_PUBLIC_SECRET_KEY, payload: {email: session.user.email}})
+//                         }
+//                         )
+//                         .then(
+//                             createRes => { return createRes.data.data }
+//                         )
+//                     }
+//                     else
+//                     {
+//                         return res.data.data;
+//                     }
+//                 }
+//             )
+//         }
+//     )}
+// }   

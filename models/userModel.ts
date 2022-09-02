@@ -24,7 +24,7 @@ const modelSchema = new Schema({
     },
     weight: {
         type: String,
-        default: "null"
+        default: ""
     },
     diet: {
         type: String,
