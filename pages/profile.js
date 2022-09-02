@@ -147,48 +147,48 @@ const Profile = (props) => {
                     {/* Gender */}
                     <div className="flex flex-col">
                         <label className="generic-label">Gender</label>
-                        <CustomSelect value={userData['gender']} setData={setUserData} target={"gender"} disabled={!editing} options={genders}/>
+                        {/* <CustomSelect value={userData['gender']} setData={setUserData} target={"gender"} disabled={!editing} options={genders}/> */}
                     </div>
 
                     {/* Age */}
                     <div className="flex flex-col">
                         <label className="generic-label">Age (years)</label>
-                        <CustomInput value={userData['age']} setData={setUserData} target={"age"} disabled={!editing}/>
+                        {/* <CustomInput value={userData['age']} setData={setUserData} target={"age"} disabled={!editing}/> */}
                     </div>
 
                     {/* Weight */}
                     <div className="flex flex-col">
                         <label className="generic-label">Weight (lbs)</label>
-                        <CustomInput value={userData['weight']} setData={setUserData} target={"weight"} disabled={!editing}/>
+                        {/* <CustomInput value={userData['weight']} setData={setUserData} target={"weight"} disabled={!editing}/> */}
                     </div>
 
                     {/* height  */}
-                    {/* <div className='flex flex-col'>
+                    <div className='flex flex-col'>
                         <label className="generic-label">Height</label>
                         <div className='flex items-center gap-2'>
-                            <CustomInput value={userData['height_ft']} setData={setUserData} target={"height_ft"} disabled={!editing}/>
+                            {/* <CustomInput value={userData['height_ft']} setData={setUserData} target={"height_ft"} disabled={!editing}/> */}
                             <label htmlFor="height_ft" className="generic-sublabel">ft</label>
-                            <CustomInput value={userData['height_in']} setData={setUserData} target={"height_in"} disabled={!editing}/>
+                            {/* <CustomInput value={userData['height_in']} setData={setUserData} target={"height_in"} disabled={!editing}/> */}
                             <label htmlFor="height_in" className="generic-sublabel">in</label>
                         </div>
-                    </div> */}
+                    </div>
 
                     {/* Dietary Restrictions */}
-                    {/* <div className='flex flex-col'>
+                    <div className='flex flex-col'>
                         <label className='generic-label'>Diet</label>
-                        <CustomSelect value={userData['diet']} setData={setUserData} target={"diet"}  disabled={!editing} options={diets}/>
-                    </div> */}
+                        {/* <CustomSelect value={userData['diet']} setData={setUserData} target={"diet"}  disabled={!editing} options={diets}/> */}
+                    </div>
 
                     {/* Allergies */}
-                    {/* <div className='flex flex-col'>
+                    <div className='flex flex-col'>
                         <label className='generic-label'>Allergies</label>
-                        <CustomSelect options={allergies} multiselect={true}/>
-                    </div> */}
+                        {/* <CustomSelect options={allergies} multiselect={true}/> */}
+                    </div>
 
                     {/* Activity Level */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Activity Level</label>
-                        <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/>
+                        {/* <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/> */}
                     </div>
 
                     {/* Goals */}

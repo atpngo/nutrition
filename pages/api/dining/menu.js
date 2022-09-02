@@ -2,6 +2,14 @@ const cheerio = require('cheerio');
 const validDiningHall = ['DeNeve', 'Rieber'];
 const validMealPeriod = ['Breakfast', 'Lunch', 'Dinner']
 
+const removeDuplicates = (arr, key) =>
+{
+    /**
+     * Removes duplicate objects from array
+     */
+    return arr.filter((v,i,a)=>a.findIndex(v2=>(v2[key]===v[key]))===i);
+
+}
 
 export default async function getMenu(req, res)
 {
@@ -36,6 +44,13 @@ export default async function getMenu(req, res)
                         PAYLOAD[locationName].push(tmpObject)
                     }
                 )
+            })
+
+            // remove duplicates
+            Object.keys(PAYLOAD).forEach(
+                (key) => {
+                    PAYLOAD[key] = removeDuplicates(PAYLOAD[key], "name");
+
             })
 
             return res.json({
