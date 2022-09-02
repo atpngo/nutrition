@@ -127,7 +127,7 @@ const Profile = (props) => {
         //     console.log(err);
         // })
         
-    }, [])
+    }, [setUserData])
     
     if (session)
     {
