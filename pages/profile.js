@@ -188,7 +188,7 @@ const Profile = (props) => {
                     {/* Activity Level */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Activity Level</label>
-                        {/* <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/> */}
+                        <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/>
                     </div>
 
                     {/* Goals */}
