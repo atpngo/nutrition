@@ -85,16 +85,16 @@ const Profile = (props) => {
 
     useEffect(() => {
 
-        // setUserData({
-        //     'height_ft': '7',
-        //     'height_in': '2',
-        //     'age': '69',
-        //     'gender': 'male',
-        //     'weight': '4432',
-        //     'diet': 'vegan',
-        //     'activity': 'active',
-        //     'goals': 'cutting'
-        // })
+        setUserData({
+            'height_ft': '7',
+            'height_in': '2',
+            'age': '69',
+            'gender': 'male',
+            'weight': '4432',
+            'diet': 'vegan',
+            'activity': 'active',
+            'goals': 'cutting'
+        })
         // getSession().then(
         //     session =>
         //     {
