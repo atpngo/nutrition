@@ -147,7 +147,7 @@ const Profile = (props) => {
                     {/* Gender */}
                     <div className="flex flex-col">
                         <label className="generic-label">Gender</label>
-                        {/* <CustomSelect value={userData['gender']} setData={setUserData} target={"gender"} disabled={!editing} options={genders}/> */}
+                        <CustomSelect value={userData['gender']} setData={setUserData} target={"gender"} disabled={!editing} options={genders}/>
                     </div>
 
                     {/* Age */}
@@ -176,19 +176,19 @@ const Profile = (props) => {
                     {/* Dietary Restrictions */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Diet</label>
-                        {/* <CustomSelect value={userData['diet']} setData={setUserData} target={"diet"}  disabled={!editing} options={diets}/> */}
+                        <CustomSelect value={userData['diet']} setData={setUserData} target={"diet"}  disabled={!editing} options={diets}/>
                     </div>
 
                     {/* Allergies */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Allergies</label>
-                        {/* <CustomSelect options={allergies} multiselect={true}/> */}
+                        <CustomSelect options={allergies} multiselect={true}/>
                     </div>
 
                     {/* Activity Level */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Activity Level</label>
-                        {/* <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/> */}
+                        <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/>
                     </div>
 
                     {/* Goals */}
