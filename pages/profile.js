@@ -181,20 +181,20 @@ const Profile = (props) => {
 
                     {/* Allergies */}
                     <div className='flex flex-col'>
-                        <label className='generic-label'>Allergies</label>
+                        {/* <label className='generic-label'>Allergies</label> */}
                         {/* <CustomSelect options={allergies} multiselect={true}/> */}
                     </div>
 
                     {/* Activity Level */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Activity Level</label>
-                        <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/>
+                        {/* <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/> */}
                     </div>
 
                     {/* Goals */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Goals</label>
-                        <CustomSelect value={userData['goals']} setData={setUserData} target={"goals"} disabled={!editing} options={goals}/>
+                        {/* <CustomSelect value={userData['goals']} setData={setUserData} target={"goals"} disabled={!editing} options={goals}/> */}
                     </div>
 
 
