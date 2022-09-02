@@ -122,7 +122,7 @@ const Profile = (props) => {
     {
         return (
             <Wrapper title={"Profile"}>
-                <div className="mx-auto pt-4 w-full lg:w-[500px] border-4 border-red-500">
+                <div className="mx-auto pt-4 w-full lg:w-[500px] border-4 border-red-500 pb-[600px]">
                 <div className="flex flex-col gap-4 border-4 border-blue-500">
                     {/* profile section */}
                     <div className="flex gap-3 justify-center">
