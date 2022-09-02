@@ -115,7 +115,7 @@ const Profile = (props) => {
         return (
             <Wrapper title={"Profile"}>
                 <div className="flex justify-center">
-                <div className="flex flex-col max-w-xl gap-4">
+                <div className="flex flex-col max-w-lg gap-4 pt-4">
                     {/* profile section */}
                     <div className="flex gap-3 justify-center">
                         <img className="w-20 h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
@@ -185,7 +185,7 @@ const Profile = (props) => {
                             :
                             <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {setEditing(true)}}>EDIT</motion.button>
                         }
-                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {console.log(userData)}}>DEBUG</motion.button>
+                            {/* <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {console.log(userData)}}>DEBUG</motion.button> */}
 
                     </div>
                 </div>
