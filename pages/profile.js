@@ -134,7 +134,7 @@ const Profile = (props) => {
         return (
             <Wrapper title={"Profile"}>
                 <div className="mx-auto pt-4 w-full lg:w-[500px] border-4 border-red-500">
-                <div className="flex flex-col gap-4 border-4 border-blue-500">
+                <div className="flex flex-col gap-4 border-4 border-blue-500 pb-[500px]">
                     {/* profile section */}
                     <div className="flex gap-3 justify-center">
                         <img className="w-20 h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
