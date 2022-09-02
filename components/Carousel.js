@@ -9,7 +9,6 @@ function Carousel({children, length})
     const carousel = useRef();
 
     useEffect(() => {
-        console.log(length);
         setWidth(carousel.current.scrollWidth-carousel.current.offsetWidth+8);
         setWidth(carousel.current.scrollWidth-carousel.current.offsetWidth+8);
     }, [])

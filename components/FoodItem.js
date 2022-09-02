@@ -21,7 +21,7 @@ function FoodItem({imgUrl, name, nutrition})
 
     return (
         <motion.div className={`w-fooditem select-none flex flex-col shadow-md shrink-0 grow-0 rounded-xl bg-white`}>
-            <img className={`object-cover rounded-t-xl h-[100px]`} src={imgUrl}/>
+            <img className={`object-cover rounded-t-xl h-[100px]`} alt={`${name}`} src={imgUrl}/>
             <div className={`flex flex-col text-sm text-center p-2 h-full gap-2 justify-center items-center`}>
                 <p className={`text-md font-semibold`}>
                     {formattedName.length > charLimit ? formattedName.substring(0,charLimit).trim() + '...' : formattedName}
