@@ -20,8 +20,8 @@ function CustomSelect({options, disabled, setData, target, value})
     }
 
     return (
-        <div className="">
-            <select value={myValue} disabled={disabled} onChange={handleChange} className={"w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-blue"} aria-label="Default select example">
+        <div className="w-full">
+            <select value={myValue} disabled={disabled} onChange={handleChange} className={"generic-select"} aria-label="Default select example">
                 <option value={"null"} disabled hidden>Select an option...</option>
                 {options.map(
                     (option) => {

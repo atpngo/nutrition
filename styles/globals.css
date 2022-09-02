@@ -37,3 +37,7 @@ img {
 .generic-label {
   @apply block mb-1 text-sm font-medium text-gray-900
 }
+
+.generic-select {
+  @apply w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-blue
+}

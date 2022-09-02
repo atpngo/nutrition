@@ -147,7 +147,7 @@ const Profile = (props) => {
                     {/* Gender */}
                     <div className="flex flex-col">
                         <label className="generic-label">Gender</label>
-                        {/* <CustomSelect value={userData['gender']} setData={setUserData} target={"gender"} disabled={!editing} options={genders}/> */}
+                        <CustomSelect value={userData['gender']} setData={setUserData} target={"gender"} disabled={!editing} options={genders}/>
                     </div>
 
                     {/* Age */}
