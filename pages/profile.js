@@ -152,7 +152,7 @@ const Profile = (props) => {
                     </div>
 
                     {/* height  */}
-                    <div className='flex flex-col'>
+                    {/* <div className='flex flex-col'>
                         <label className="generic-label">Height</label>
                         <div className='flex items-center gap-2'>
                             <CustomInput value={userData['height_ft']} setData={setUserData} target={"height_ft"} disabled={!editing}/>
@@ -160,13 +160,13 @@ const Profile = (props) => {
                             <CustomInput value={userData['height_in']} setData={setUserData} target={"height_in"} disabled={!editing}/>
                             <label htmlFor="height_in" className="generic-sublabel">in</label>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Dietary Restrictions */}
-                    <div className='flex flex-col'>
+                    {/* <div className='flex flex-col'>
                         <label className='generic-label'>Diet</label>
                         <CustomSelect value={userData['diet']} setData={setUserData} target={"diet"}  disabled={!editing} options={diets}/>
-                    </div>
+                    </div> */}
 
                     {/* Allergies */}
                     {/* <div className='flex flex-col'>
