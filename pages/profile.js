@@ -34,23 +34,23 @@ const allergies = [
     {label: 'Egg', value: 'egg4'},
 ]
 
-// const activityLevels = [
-//     {label: 'Sedentary: little or no exercise', value: 'sedentary'},
-//     {label: 'Light: exercise 1-3 times/week', value: 'light'},
-//     {label: 'Moderate: exercise 4-5 times/week', value: 'moderate'},
-//     {label: 'Active: daily exercise or intense exercise 3-4 times/week', value: 'active'},
-//     {label: 'Very Active: intense exercise 6-7 times/week', value: 'very_active'},
-//     {label: 'Extra Active: very intense exercise daily, or physical job', value: 'extra_active'},
-// ]
-
 const activityLevels = [
-    {label: 'Sedentary', value: 'sedentary'},
-    {label: 'Light', value: 'light'},
-    {label: 'Moderate', value: 'moderate'},
-    {label: 'Active', value: 'active'},
-    {label: 'Very Active', value: 'very_active'},
-    {label: 'Extra Active', value: 'extra_active'},
+    {label: 'Sedentary: little or no exercise', value: 'sedentary'},
+    {label: 'Light: exercise 1-3 times/week', value: 'light'},
+    {label: 'Moderate: exercise 4-5 times/week', value: 'moderate'},
+    {label: 'Active: daily exercise or intense exercise\n3-4 times/week', value: 'active'},
+    {label: 'Very Active: intense exercise\n6-7 times/week', value: 'very_active'},
+    {label: 'Extra Active: very intense exercise daily\nphysical job', value: 'extra_active'},
 ]
+
+// const activityLevels = [
+//     {label: 'Sedentary', value: 'sedentary'},
+//     {label: 'Light', value: 'light'},
+//     {label: 'Moderate', value: 'moderate'},
+//     {label: 'Active', value: 'active'},
+//     {label: 'Very Active', value: 'very_active'},
+//     {label: 'Extra Active', value: 'extra_active'},
+// ]
 
 const goals = [
     {label: 'Bulking', value: 'bulking'},
@@ -142,7 +142,7 @@ const Profile = (props) => {
     {
         return (
             <Wrapper title={"Profile"}>
-                <div className="mx-auto pt-4 w-full lg:w-[500px] border-4 border-red-500">
+                <div className="mx-auto pt-4 w-full max-w-lg border-4 border-red-500">
                 <div className="flex flex-col gap-4 border-4 border-blue-500 pb-[500px]">
                     {/* profile section */}
                     <div className="flex gap-3 justify-center">
