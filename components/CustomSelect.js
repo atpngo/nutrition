@@ -33,7 +33,7 @@ function CustomSelect({options, disabled, setData, target, value})
                                 <>
                                 <option key={option.value} value={option.value}>{tmp[0]}</option>
                                 {tmp[1].split("\n").map( labelSegment => {return (
-                                    <option disabled className="text-slate-500">{labelSegment}</option>
+                                    <option disabled key={labelSegment} className="text-slate-500">{labelSegment}</option>
                                 )})}
                                 </>
                             )
