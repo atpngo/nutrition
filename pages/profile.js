@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Wrapper from "../components/Wrapper";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Banner from "../components/Banner";
 
 const genders = [
     {label: 'Male', value: 'male'},
@@ -52,6 +53,7 @@ const goals = [
 
 const Profile = (props) => {
     const {data: session} = useSession();
+    const [visibleBanner, setVisibleBanner] = useState(false);
     const [userData, setUserData] = useState({
         'height_ft': '',
         'height_in': '',
@@ -71,7 +73,12 @@ const Profile = (props) => {
         {
             axios.post('/api/user/update', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email, payload: userData})
             .then(
-                res => console.log(res)
+                res => {
+                    setVisibleBanner(true)
+                }
+            )
+            .catch(
+                err => console.log(err)
             )
         }
         catch (error)
@@ -122,8 +129,11 @@ const Profile = (props) => {
     {
         return (
             <Wrapper title={"Profile"}>
-                <div className="mx-auto pt-4 w-full max-w-lg">
+                <div className="mx-auto pt-4 max-w-[500px]">
                 <div className="flex flex-col gap-4">
+
+
+
                     {/* profile section */}
                     <div className="flex gap-3 justify-center">
                         <img className="w-20 h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
@@ -132,6 +142,8 @@ const Profile = (props) => {
                             <p className="text-lg">{session.user.email}</p>
                         </div>
                     </div>
+                    {visibleBanner && !editing && <Banner/>}
+
 
                     {/* Gender */}
                     <div className="flex flex-col">
@@ -187,6 +199,7 @@ const Profile = (props) => {
                     </div>
 
 
+
                     <div className='flex justify-center'>
                         {editing ? 
                             <motion.button whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false); saveChanges();}}>SAVE CHANGES</motion.button>
@@ -196,6 +209,8 @@ const Profile = (props) => {
                             {/* <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {console.log(userData)}}>DEBUG</motion.button> */}
 
                     </div>
+
+
                 </div>
                 </div>
             </Wrapper>

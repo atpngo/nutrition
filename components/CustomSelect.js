@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function CustomSelect({options, disabled, setData, target, value})
 {
@@ -30,13 +30,10 @@ function CustomSelect({options, disabled, setData, target, value})
                             let tmp = option.label.split(":").map(ele => ele.trim());
                             
                             return (
-                                <>
+                                <React.Fragment key={option.value}>
                                 <option key={option.value} value={option.value}>{tmp[0]}</option>
                                 <option disabled key={tmp[1]} className="text-slate-500">{tmp[1]}</option>
-                                {/* {tmp[1].split("\n").map( labelSegment => {return (
-                                    <option disabled key={labelSegment} className="text-slate-500">{labelSegment}</option>
-                                )})} */}
-                                </>
+                                </React.Fragment>
                             )
                         }
                         return (<option key={option.value} value={option.value}>{option.label}</option>)

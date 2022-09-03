@@ -27,7 +27,7 @@ img {
 
 
 .generic-input {  
-  @apply bg-white border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-primary-blue focus:border-primary-blue block w-full p-2.5 text-center shadow-sm py-1
+  @apply bg-white border border-gray-300 text-gray-900 disabled:text-gray-400 text-lg rounded-lg focus:ring-primary-blue focus:border-primary-blue block w-full p-2.5 text-center shadow-sm py-1
 }
 
 .generic-sublabel {
@@ -39,5 +39,5 @@ img {
 }
 
 .generic-select {
-  @apply w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-blue
+  @apply w-full border-gray-300 rounded-lg shadow-sm focus:ring-primary-blue disabled:text-gray-400
 }

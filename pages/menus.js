@@ -70,6 +70,9 @@ const MenusPage = () => {
                 )
             }
         )
+        .catch(
+            err => console.log(err)
+        )
     }, [])
 
     if (loading)
