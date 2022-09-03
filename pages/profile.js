@@ -34,13 +34,22 @@ const allergies = [
     {label: 'Egg', value: 'egg4'},
 ]
 
+// const activityLevels = [
+//     {label: 'Sedentary: little or no exercise', value: 'sedentary'},
+//     {label: 'Light: exercise 1-3 times/week', value: 'light'},
+//     {label: 'Moderate: exercise 4-5 times/week', value: 'moderate'},
+//     {label: 'Active: daily exercise or intense exercise 3-4 times/week', value: 'active'},
+//     {label: 'Very Active: intense exercise 6-7 times/week', value: 'very_active'},
+//     {label: 'Extra Active: very intense exercise daily, or physical job', value: 'extra_active'},
+// ]
+
 const activityLevels = [
-    {label: 'Sedentary: little or no exercise', value: 'sedentary'},
-    {label: 'Light: exercise 1-3 times/week', value: 'light'},
-    {label: 'Moderate: exercise 4-5 times/week', value: 'moderate'},
-    {label: 'Active: daily exercise or intense exercise 3-4 times/week', value: 'active'},
-    {label: 'Very Active: intense exercise 6-7 times/week', value: 'very_active'},
-    {label: 'Extra Active: very intense exercise daily, or physical job', value: 'extra_active'},
+    {label: 'Sedentary', value: 'sedentary'},
+    {label: 'Light', value: 'light'},
+    {label: 'Moderate', value: 'moderate'},
+    {label: 'Active', value: 'active'},
+    {label: 'Very Active', value: 'very_active'},
+    {label: 'Extra Active', value: 'extra_active'},
 ]
 
 const goals = [
@@ -188,7 +197,7 @@ const Profile = (props) => {
                     {/* Activity Level */}
                     <div className='flex flex-col'>
                         <label className='generic-label'>Activity Level</label>
-                        {/* <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/> */}
+                        <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/>
                     </div>
 
                     {/* Goals */}
