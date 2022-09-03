@@ -169,10 +169,10 @@ const Profile = (props) => {
                     </div>
 
                     {/* Allergies */}
-                    <div className='flex flex-col'>
-                        {/* <label className='generic-label'>Allergies</label> */}
-                        {/* <CustomSelect options={allergies} multiselect={true}/> */}
-                    </div>
+                    {/* <div className='flex flex-col'>
+                        <label className='generic-label'>Allergies</label>
+                        <CustomSelect options={allergies} multiselect={true}/>
+                    </div> */}
 
                     {/* Activity Level */}
                     <div className='flex flex-col'>
