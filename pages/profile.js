@@ -38,19 +38,10 @@ const activityLevels = [
     {label: 'Sedentary: little or no exercise', value: 'sedentary'},
     {label: 'Light: exercise 1-3 times/week', value: 'light'},
     {label: 'Moderate: exercise 4-5 times/week', value: 'moderate'},
-    {label: 'Active: daily exercise or intense exercise\n3-4 times/week', value: 'active'},
-    {label: 'Very Active: intense exercise\n6-7 times/week', value: 'very_active'},
-    {label: 'Extra Active: very intense exercise daily\nphysical job', value: 'extra_active'},
+    {label: 'Active: daily exercise or intense exercise 3-4 times/week', value: 'active'},
+    {label: 'Very Active: intense exercise 6-7 times/week', value: 'very_active'},
+    {label: 'Extra Active: very intense exercise daily or physical job', value: 'extra_active'},
 ]
-
-// const activityLevels = [
-//     {label: 'Sedentary', value: 'sedentary'},
-//     {label: 'Light', value: 'light'},
-//     {label: 'Moderate', value: 'moderate'},
-//     {label: 'Active', value: 'active'},
-//     {label: 'Very Active', value: 'very_active'},
-//     {label: 'Extra Active', value: 'extra_active'},
-// ]
 
 const goals = [
     {label: 'Bulking', value: 'bulking'},
@@ -93,48 +84,37 @@ const Profile = (props) => {
     
 
     useEffect(() => {
-
-        setUserData({
-            'height_ft': '7',
-            'height_in': '2',
-            'age': '69',
-            'gender': 'male',
-            'weight': '4432',
-            'diet': 'vegan',
-            'activity': 'active',
-            'goals': 'cutting'
+        getSession().then(
+            session =>
+            {
+                axios.post('/api/user/get', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email})
+                .then(
+                    res => {
+                        // user doesn't exist
+                        if (res.data.data === null)
+                        {
+                            axios.post('/api/user/create', {key: process.env.NEXT_PUBLIC_SECRET_KEY, payload: {email: session.user.email}})
+                            .then(
+                                createRes => setUserData(createRes.data.data)
+                            )
+                            .catch(
+                                err => console.error(err)
+                            )
+                        }
+                        else
+                        {
+                            setUserData(res.data.data);
+                        }
+                    }
+                )
+                .catch(
+                    err => console.error(err)
+                )
+            }
+        )
+        .catch(err => {
+            console.log(err);
         })
-        // getSession().then(
-        //     session =>
-        //     {
-        //         axios.post('/api/user/get', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email})
-        //         .then(
-        //             res => {
-        //                 // user doesn't exist
-        //                 if (res.data.data === null)
-        //                 {
-        //                     axios.post('/api/user/create', {key: process.env.NEXT_PUBLIC_SECRET_KEY, payload: {email: session.user.email}})
-        //                     .then(
-        //                         createRes => setUserData(createRes.data.data)
-        //                     )
-        //                     .catch(
-        //                         err => console.error(err)
-        //                     )
-        //                 }
-        //                 else
-        //                 {
-        //                     setUserData(res.data.data);
-        //                 }
-        //             }
-        //         )
-        //         .catch(
-        //             err => console.error(err)
-        //         )
-        //     }
-        // )
-        // .catch(err => {
-        //     console.log(err);
-        // })
         
     }, [])
     
@@ -142,8 +122,8 @@ const Profile = (props) => {
     {
         return (
             <Wrapper title={"Profile"}>
-                <div className="mx-auto pt-4 w-full max-w-lg border-4 border-red-500">
-                <div className="flex flex-col gap-4 border-4 border-blue-500 pb-[500px]">
+                <div className="mx-auto pt-4 w-full max-w-lg">
+                <div className="flex flex-col gap-4">
                     {/* profile section */}
                     <div className="flex gap-3 justify-center">
                         <img className="w-20 h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
