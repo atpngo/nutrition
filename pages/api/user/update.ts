@@ -18,6 +18,7 @@ export default async function getUser(req: NextApiRequest, res: NextApiResponse)
                 if (req.body.key === process.env.SECRET_KEY && req.body.email && req.body.payload)
                 {
                     await connectMongo();
+
                     const data = await User.updateOne({email: req.body.email}, req.body.payload)
 
                     return res.status(200).json(

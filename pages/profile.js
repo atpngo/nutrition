@@ -6,6 +6,8 @@ import Wrapper from "../components/Wrapper";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Banner from "../components/Banner";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
+import CustomDialog from "../components/CustomDialog";
 
 const genders = [
     {label: 'Male', value: 'male'},
@@ -36,22 +38,33 @@ const allergies = [
 ]
 
 const activityLevels = [
-    {label: 'Sedentary: little or no exercise', value: 'sedentary'},
-    {label: 'Light: exercise 1-3 times/week', value: 'light'},
-    {label: 'Moderate: exercise 4-5 times/week', value: 'moderate'},
-    {label: 'Active: daily exercise or intense exercise 3-4 times/week', value: 'active'},
-    {label: 'Very Active: intense exercise 6-7 times/week', value: 'very_active'},
-    {label: 'Extra Active: very intense exercise daily or physical job', value: 'extra_active'},
+    {label: 'Sedentary', value: 'sedentary'},
+    {label: 'Light', value: 'light'},
+    {label: 'Moderately Active', value: 'moderate'},
+    {label: 'Very Active', value: 'very_active'},
+    {label: 'Extra Active', value: 'extra_active'},
 ]
 
 const goals = [
-    {label: 'Bulking', value: 'bulking'},
+    {label: 'Weight Gain', value: 'bulking'},
     {label: 'Maintaining', value: 'maintaining'},
-    {label: 'Cutting', value: 'cutting'},
-
+    {label: 'Weight Loss', value: 'cutting'},
 ]
 
+
+// helper function to calculate nutritional info
+function calculateNutrition(person)
+{
+    // person is an object that contains height, weight etc;
+}
+
+function validInputs()
+{
+    // check state to make sure everything is filled out before allowing a user to save their changes
+}
+
 const Profile = (props) => {
+    const [open, setOpen] = useState(false);
     const {data: session} = useSession();
     const [visibleBanner, setVisibleBanner] = useState(false);
     const [userData, setUserData] = useState({
@@ -62,15 +75,17 @@ const Profile = (props) => {
         'weight': '',
         'diet': 'null',
         'activity': 'null',
-        'goals': 'null'
+        'goals': 'null',
     });
 
     const [editing, setEditing] = useState(false);
+
 
     const saveChanges = async () => 
     {
         try 
         {
+            
             axios.post('/api/user/update', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email, payload: userData})
             .then(
                 res => {
@@ -130,7 +145,7 @@ const Profile = (props) => {
         return (
             <Wrapper title={"Profile"}>
                 <div className="mx-auto pt-4 max-w-[500px]">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-3">
 
 
 
@@ -188,8 +203,12 @@ const Profile = (props) => {
 
                     {/* Activity Level */}
                     <div className='flex flex-col'>
-                        <label className='generic-label'>Activity Level</label>
+                        <div className='flex gap-1'>
+                            <label className='generic-label'>Activity Level</label>
+                            <button onClick={() => setOpen(true)}><AiOutlineQuestionCircle/></button>
+                        </div>
                         <CustomSelect value={userData['activity']} setData={setUserData} target={"activity"}  disabled={!editing} options={activityLevels}/>
+                        <CustomDialog open={open} handleClose={() => setOpen(false)}/>
                     </div>
 
                     {/* Goals */}

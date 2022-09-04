@@ -38,7 +38,17 @@ const modelSchema = new Schema({
         type: String,
         default: "null"
     },
-    allergies: [{type: String}]
+    allergies: [{type: String}],
+    nutrition: {
+        type: Map,
+        of: String,
+        default: {
+            "calories": "",
+            "fats": "",
+            "carbohydrates": "",
+            "protein": ""
+        }
+    }
 
 })
 
