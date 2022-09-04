@@ -9,7 +9,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-blue': '#3CCEEE'
+        'primary-blue': '#3CCEEE',
+        'banner-success': '#16a34a'
       },
       fontFamily: {
         'rubik': ['Rubik', 'sans-serif']

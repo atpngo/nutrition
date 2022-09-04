@@ -22,9 +22,9 @@ function Banner(props)
                     animate={{opacity: 1}}
                     exit={{opacity: 0}}
                     transition={{duration: 0.30, ease: "easeOut"}}
-                    className="flex py-2 px-4 gap-2 items-center justify-between bg-green-200 border-2 border-green-400 rounded-xl banner"
+                    className="flex py-2 px-4 gap-2 items-center justify-between bg-green-200 rounded-xl banner"
                 >
-                    <p className="text-lg">Changes Saved!</p>
+                    <p className="text-lg text-banner-success">Changes Saved!</p>
                     <AiOutlineCloseCircle color="#16a34a" size={20} onClick={() => {setIsVisible(false)}}/>
                 </motion.div>
                 }

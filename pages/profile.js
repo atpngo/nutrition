@@ -58,9 +58,26 @@ function calculateNutrition(person)
     // person is an object that contains height, weight etc;
 }
 
-function validInputs()
+function validInputs(state)
 {
     // check state to make sure everything is filled out before allowing a user to save their changes
+    const nullKeys = ['gender', 'diet', 'activity', 'goals'];
+    const emptyKeys = ['height_ft', 'height_in', 'age', 'weight'];
+    for (const key of nullKeys) 
+    {
+        if (state[key] === 'null')
+        {
+            return false
+        }
+    }
+    for (const key of emptyKeys)
+    {
+        if (state[key] === '')
+        {
+            return false
+        }
+    }
+    return true
 }
 
 const Profile = (props) => {
@@ -221,9 +238,9 @@ const Profile = (props) => {
 
                     <div className='flex justify-center'>
                         {editing ? 
-                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false); saveChanges();}}>SAVE CHANGES</motion.button>
+                            <motion.button disabled={!validInputs(userData)} whileTap={{scale: 0.9}} className='disabled:border-gray-200 disabled:text-gray-200 border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false); saveChanges();}}>SAVE CHANGES</motion.button>
                             :
-                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {setEditing(true)}}>EDIT</motion.button>
+                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(true)}}>EDIT</motion.button>
                         }
                             {/* <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {console.log(userData)}}>DEBUG</motion.button> */}
 
