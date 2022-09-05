@@ -14,14 +14,14 @@ function CustomDialog({open, handleClose})
 
     return (
         <Dialog fullWidth={true} maxWidth={"sm"} open={open} onClose={handleClose}>
-            <div className="flex flex-col items-center bg-white p-5 gap-3">
-                <p className="text-xl">Activity Levels</p>
+            <div className="flex flex-col items-center bg-white dark:bg-black p-5 gap-3">
+                <p className="text-xl colored-text">Activity Levels</p>
                 <div className="flex flex-col gap-2">
                     {Object.keys(activityLevels).map(
                         (key) => (
                         <div key={key}>
-                            <p className="font-semibold">{key}</p>
-                            <p className="pl-4">{activityLevels[key]}</p>
+                            <p className="font-semibold colored-text">{key}</p>
+                            <p className="pl-4 colored-text">{activityLevels[key]}</p>
                         </div>
                         )
                     )}

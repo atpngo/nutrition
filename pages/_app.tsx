@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
         <link rel="manifest" href="/site.webmanifest"/>
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#444444"/>
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#333333"/>
         {/* <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2F1F6"/> */}
       </Head>
       {showNavBar && <NavBar/>}
