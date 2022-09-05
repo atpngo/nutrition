@@ -33,7 +33,7 @@ const NavBar = () => {
     return (
         <IconContext.Provider value={{}}>
             <div className="fixed inset-x-0 bottom-0 h-16 bg-light-bg dark:bg-dark-bg pb-2 border-t-2 border-gray-200 dark:border-[#5B5B5B] z-50">
-                <div className="flex flex-row gap-3 h-full items-center justify-between px-10">
+                <div className="flex flex-row gap-3 h-full items-center justify-around">
                     <IconWrapper href="/menus">
                         <IoFastFoodOutline 
                             size="1em"
