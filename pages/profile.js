@@ -76,6 +76,7 @@ function validInputs(state)
 
 const Profile = (props) => {
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
     const {data: session} = useSession();
     const [visibleBanner, setVisibleBanner] = useState(false);
     const [userData, setUserData] = useState({
@@ -96,7 +97,7 @@ const Profile = (props) => {
     {
         try 
         {
-            
+            localStorage.setItem('user', JSON.stringify(userData));
             axios.post('/api/user/update', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email, payload: userData})
             .then(
                 res => {
@@ -117,37 +118,51 @@ const Profile = (props) => {
     
 
     useEffect(() => {
-        getSession().then(
-            session =>
-            {
-                axios.post('/api/user/get', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email})
-                .then(
-                    res => {
-                        // user doesn't exist
-                        if (res.data.data === null)
-                        {
-                            axios.post('/api/user/create', {key: process.env.NEXT_PUBLIC_SECRET_KEY, payload: {email: session.user.email}})
-                            .then(
-                                createRes => setUserData(createRes.data.data)
-                            )
-                            .catch(
-                                err => console.error(err)
-                            )
+        if (localStorage.hasOwnProperty('user'))
+        {
+            setUserData(JSON.parse(localStorage.getItem('user')))
+            setLoading(false);
+        }
+        else
+        {
+            getSession().then(
+                session =>
+                {
+                    axios.post('/api/user/get', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email})
+                    .then(
+                        res => {
+                            // user doesn't exist
+                            if (res.data.data === null)
+                            {
+                                axios.post('/api/user/create', {key: process.env.NEXT_PUBLIC_SECRET_KEY, payload: {email: session.user.email}})
+                                .then(
+                                    createRes => {
+                                        setUserData(createRes.data.data)
+                                        localStorage.setItem('user', JSON.stringify(createRes.data.data))  
+                                        setLoading(false);
+                                    }
+                                )
+                                .catch(
+                                    err => console.error(err)
+                                )
+                            }
+                            else
+                            {
+                                setUserData(res.data.data);
+                                localStorage.setItem('user', JSON.stringify(res.data.data));
+                                setLoading(false);
+                            }
                         }
-                        else
-                        {
-                            setUserData(res.data.data);
-                        }
-                    }
-                )
-                .catch(
-                    err => console.error(err)
-                )
-            }
-        )
-        .catch(err => {
-            console.log(err);
-        })
+                    )
+                    .catch(
+                        err => console.error(err)
+                    )
+                }
+            )
+            .catch(err => {
+                console.log(err);
+            })
+        }
         
     }, [])
     
