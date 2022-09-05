@@ -8,6 +8,7 @@ import axios from "axios";
 import Banner from "../components/Banner";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import CustomDialog from "../components/CustomDialog";
+import Loading from "../components/Loading";
 
 const genders = [
     {label: 'Male', value: 'male'},
@@ -165,6 +166,11 @@ const Profile = (props) => {
         }
         
     }, [])
+
+    if (loading)
+    {
+        return <Loading/>
+    }
     
     if (session)
     {
