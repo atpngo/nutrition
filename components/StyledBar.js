@@ -10,9 +10,6 @@ const StyledDiv = styled.div`
 
 function StyledBar(props)
 {
-    useEffect(() => {
-    console.log(`background: linear-gradient(to right, ${props => props.colors[0]} 0%, ${props => props.colors[0]} ${props => props.percentages[0]}, ${props => props.colors[1]} ${props => props.percentages[0]}, ${props => props.colors[1]} ${props => props.percentages[1]}, ${props => props.colors[2]} ${props => props.percentages[1]}, ${props => props.colors[2]} 100%);`)
-    }, [])
     // props:
     // colors: [3]
     // percentages: [2]
