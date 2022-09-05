@@ -38,11 +38,11 @@ const allergies = [
 ]
 
 const activityLevels = [
-    {label: 'Sedentary', value: 'sedentary'},
-    {label: 'Light', value: 'light'},
-    {label: 'Moderately Active', value: 'moderate'},
-    {label: 'Very Active', value: 'very_active'},
-    {label: 'Extra Active', value: 'extra_active'},
+    {label: 'Sedentary', value: '1.2'},
+    {label: 'Light', value: '1.375'},
+    {label: 'Moderately Active', value: '1.55'},
+    {label: 'Very Active', value: '1.725'},
+    {label: 'Extra Active', value: '1.9'},
 ]
 
 const goals = [
@@ -51,12 +51,6 @@ const goals = [
     {label: 'Weight Loss', value: 'cutting'},
 ]
 
-
-// helper function to calculate nutritional info
-function calculateNutrition(person)
-{
-    // person is an object that contains height, weight etc;
-}
 
 function validInputs(state)
 {
@@ -161,7 +155,7 @@ const Profile = (props) => {
     {
         return (
             <Wrapper title={"Profile"}>
-                <div className="mx-auto pt-4 max-w-[500px]">
+                <div className="mx-auto max-w-[500px]">
                 <div className="flex flex-col gap-3">
 
 
@@ -170,8 +164,8 @@ const Profile = (props) => {
                     <div className="flex gap-3 justify-center">
                         <img className="w-20 h-20 rounded-full" src={session.user.image} alt="Rounded avatar"/>
                         <div className="flex flex-col justify-center gap-2">
-                            <p className="text-xl font-medium">{session.user.name}</p>
-                            <p className="text-lg">{session.user.email}</p>
+                            <p className="text-xl font-medium text-black dark:text-white">{session.user.name}</p>
+                            <p className="text-lg text-black dark:text-white">{session.user.email}</p>
                         </div>
                     </div>
                     {visibleBanner && !editing && <Banner/>}

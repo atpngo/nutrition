@@ -21,7 +21,7 @@ function CustomInput({disabled, setData, target, value})
 
     return (
         <div className="">
-            <input value={myValue} onChange={handleChange} disabled={disabled} type="number" onWheel={(e) => {e.target.blur()}} className="generic-input" required/>
+            <input value={myValue} onChange={handleChange} disabled={disabled} type="number" onWheel={(e) => {e.target.blur()}} className="generic-input bg-light-primary dark:bg-dark-primary" required/>
         </div>
     )
 }

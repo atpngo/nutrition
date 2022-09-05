@@ -48,6 +48,10 @@ const modelSchema = new Schema({
             "carbohydrates": "",
             "protein": ""
         }
+    },
+    RMR: {
+        type: String,
+        default: "0"
     }
 
 })

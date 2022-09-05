@@ -9,8 +9,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'light-bg': '#F2F1F6',
+        'light-primary': '#FFFFFF',
+        'dark-bg': '#444444',
+        'dark-primary': '#1E1E1E',
+        'dark-subtitle': '#E3E3E3',
         'primary-blue': '#3CCEEE',
-        'banner-success': '#16a34a'
+        'banner-success': '#16a34a',
+        'calories': '#EF476F',
+        'fats': '#FBC813',
+        'protein': '#06D6A0',
+        'carbohydrates': '#118AB2'
       },
       fontFamily: {
         'rubik': ['Rubik', 'sans-serif']

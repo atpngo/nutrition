@@ -18,7 +18,7 @@ function Carousel({children, length})
         // fix bug with gap ??
         <motion.div 
             ref={carousel} 
-            className={`overflow-hidden ${length} cursor-grab bg-white px-4 pb-2`}
+            className={`overflow-hidden ${length} cursor-grab px-4 pb-2`}
         >
             {/* inner carousel */}
             <motion.div 

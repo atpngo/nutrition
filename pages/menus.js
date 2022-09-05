@@ -22,30 +22,30 @@ const MenusPage = () => {
             "BCafe Bangers": []
         })
 
-        axios.post("/api/dining/menu", {"dining_hall": "DeNeve", "meal_period": "Dinner"})
+        axios.post("/api/dining/menu", {"dining_hall": "Rieber", "meal_period": "Dinner"})
         .then(
             res => {
                 let foodItems = res.data.data;
                 let promises = []
-                for (const item of foodItems["The Kitchen"])
+                for (const item of foodItems["Bruin Wok"])
                 {
                     promises.push(axios.post("/api/dining/food", {"url": item.url}));
                 }
 
-                for (const item of foodItems["The Pizzeria"])
+                for (const item of foodItems["Spice Kitchen"])
                 {
                     promises.push(axios.post("/api/dining/food", {"url": item.url}));
                 }
 
-                for (const item of foodItems["The Front Burner"])
+                for (const item of foodItems["Iron Grill"])
                 {
                     promises.push(axios.post("/api/dining/food", {"url": item.url}));
                 }
 
-                for (const item of foodItems["Flex Bar"])
-                {
-                    promises.push(axios.post("/api/dining/food", {"url": item.url}));
-                }
+                // for (const item of foodItems["Sweets"])
+                // {
+                //     promises.push(axios.post("/api/dining/food", {"url": item.url}));
+                // }
 
 
                 // for (const item of [{url: 'https://menu.dining.ucla.edu/Recipes/077010/1'}, {url: "https://menu.dining.ucla.edu/Recipes/087073/1"}, {url: "https://menu.dining.ucla.edu/Recipes/125007/1"}])
@@ -91,18 +91,21 @@ const MenusPage = () => {
             <div className="">
                 <div className="flex flex-col items-center">
                     {/* Menus from dining halls here */}
-                    <button onClick={() => console.log(food)}>Click Me</button>
+                    {/* <button onClick={() => console.log(food)}>Click Me</button> */}
                     <div className="flex flex-col">
-                        <p className="pl-4 text-xl font-bold">DeNeve</p>
+                        <p className="pl-4 text-xl font-bold colored-text">DeNeve</p>
                         <Carousel length="w-screen">
                             {food["DeNeve"].map(
                                 item => {
-                                    return <FoodItem
-                                        key={item.name}
-                                        imgUrl={item.image}
-                                        name={item.name}
-                                        nutrition={item.nutrition_info}
-                                    />
+                                    if (item.name !== undefined)
+                                    {
+                                        return <FoodItem
+                                            key={item.name}
+                                            imgUrl={item.image}
+                                            name={item.name}
+                                            nutrition={item.nutrition_info}
+                                        />
+                                    }
                                 }
                             )}
                         </Carousel>
