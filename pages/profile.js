@@ -9,6 +9,7 @@ import Banner from "../components/Banner";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import CustomDialog from "../components/CustomDialog";
 import Loading from "../components/Loading";
+import { useRouter } from "next/router";
 
 function calculateBMI(person)
 {
@@ -135,6 +136,7 @@ function validInputs(state)
 
 const Profile = (props) => {
     const [open, setOpen] = useState(false);
+    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const {data: session} = useSession();
     const [visibleBanner, setVisibleBanner] = useState(false);
@@ -187,6 +189,10 @@ const Profile = (props) => {
     
 
     useEffect(() => {
+        if (!session)
+        {
+            router.push('/');
+        }
         if (localStorage.hasOwnProperty('user'))
         {
             setUserData(JSON.parse(localStorage.getItem('user')))
@@ -237,7 +243,11 @@ const Profile = (props) => {
 
     if (loading)
     {
-        return <Loading/>
+        return (
+            <Wrapper title={"Profile"}>
+                {/* <Loading/> */}
+            </Wrapper>
+        )
     }
     
     if (session)
@@ -319,7 +329,7 @@ const Profile = (props) => {
 
 
 
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center pt-4'>
                         {editing ? 
                             <motion.button disabled={!validInputs(userData)} whileTap={{scale: 0.9}} className='disabled:border-gray-200 disabled:text-gray-200 border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false); saveChanges();}}>SAVE CHANGES</motion.button>
                             :

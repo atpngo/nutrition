@@ -98,7 +98,11 @@ const Macros = () => {
     {
         return (
             <div>
-                NOT ENOUGH DATA
+                <Wrapper title={"Macronutrients"}>
+                    <div className='flex flex-col text-center justify-center h-[700px]'>
+                    <p className='text-2xl colored-text'>Please fill out your personal information on the Profile page!</p>
+                    </div>
+                </Wrapper>
             </div>
         )
     }
