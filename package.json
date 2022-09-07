@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anatoliygatt/use-prefers-color-scheme": "^1.0.3",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@material-tailwind/react": "^1.2.4",
