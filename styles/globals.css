@@ -46,3 +46,10 @@ img {
 .colored-text {
   @apply text-black dark:text-white
 }
+
+.center-icon {
+  position: relative;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%, -50%);
+}

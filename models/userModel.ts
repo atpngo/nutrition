@@ -43,17 +43,14 @@ const modelSchema = new Schema({
         type: Map,
         of: String,
         default: {
-            "calories": "",
-            "fats": "",
-            "carbohydrates": "",
-            "protein": ""
+            "protein":  "30",
+            "fats": "30",
+            "carbs": "40",
+            "RMR": "0",
+            "BMI": "0",
+            "daily_calories": "0"
         }
     },
-    RMR: {
-        type: String,
-        default: "0"
-    }
-
 })
 
 const User = models.User || model('User', modelSchema);

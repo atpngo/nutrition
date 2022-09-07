@@ -18,7 +18,6 @@ export default async function createUser(req: NextApiRequest, res: NextApiRespon
                 {
                     await connectMongo();
                     const data = await User.create(req.body.payload)
-
                     return res.status(200).json(
                         {data}
                     )

@@ -10,6 +10,64 @@ import { AiOutlineQuestionCircle } from "react-icons/ai";
 import CustomDialog from "../components/CustomDialog";
 import Loading from "../components/Loading";
 
+function calculateBMI(person)
+{
+    const LB_TO_KG = 0.45359237;
+    const IN_TO_CM = 2.54;
+    const FT_TO_CM = 30.48;
+    const weight = parseFloat(person.weight) * LB_TO_KG;
+    const height = ((parseFloat(person.height_ft) * FT_TO_CM) + (parseFloat(person.height_in) * IN_TO_CM))/100;
+    return (weight)/(height^2);
+}
+
+function calculateBMR(person)
+{
+    const LB_TO_KG = 0.45359237;
+    const IN_TO_CM = 2.54;
+    const FT_TO_CM = 30.48;
+    const GENDER_CONSTANT = person.gender === "male" ? 5 : -161;
+    const weight = parseFloat(person.weight) * LB_TO_KG;
+    const height = (parseFloat(person.height_ft) * FT_TO_CM) + (parseFloat(person.height_in) * IN_TO_CM);
+    const age = parseFloat(person.age);
+    
+    // return Basal Metabolic Rate
+    return (10*weight) + (6.25*height) - (5*age) + GENDER_CONSTANT;
+}
+
+function calculateCalories(goals, RMR)
+{
+    if (goals === "maintaining")
+    {
+        return RMR;
+    }
+    else if (goals === "bulking")
+    {
+        return RMR*1.2;
+    }
+    else if (goals === "cutting")
+    {
+        return RMR*0.8;
+    }
+    return 0;
+}
+
+function calculateRatio(goals)
+{
+    
+    if (goals === "maintaining")
+    {
+        return {'protein': '30', 'carbs': '40', 'fats': '30'}
+    }
+    else if (goals === 'bulking')
+    {
+        return {'protein': '30', 'carbs': '40', 'fats': '30'}
+    }
+    else if (goals === "cutting")
+    {
+        return {'protein': '40', 'carbs': '40', 'fats': '20'}
+    }
+}
+
 const genders = [
     {label: 'Male', value: 'male'},
     {label: 'Female', value: 'female'},
@@ -89,6 +147,7 @@ const Profile = (props) => {
         'diet': 'null',
         'activity': 'null',
         'goals': 'null',
+        'nutrition': {}
     });
 
     const [editing, setEditing] = useState(false);
@@ -98,7 +157,16 @@ const Profile = (props) => {
     {
         try 
         {
-            localStorage.setItem('user', JSON.stringify(userData));
+            let payload = {...userData};
+            payload["nutrition"]['BMI'] = calculateBMI(userData).toString();
+            const RMR = calculateBMR(userData) * parseFloat(userData.activity);
+            payload["nutrition"]["RMR"] = RMR.toString();
+            payload["nutrition"]["daily_calories"] = calculateCalories(userData.goals, RMR).toString();
+            const ratio = calculateRatio(userData.goals);
+            payload['nutrition']['protein'] = ratio['protein'];
+            payload['nutrition']['fats'] = ratio['fats'];
+            payload['nutrition']['carbs'] = ratio['carbs'];
+            localStorage.setItem('user', JSON.stringify(payload));
             axios.post('/api/user/update', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email, payload: userData})
             .then(
                 res => {

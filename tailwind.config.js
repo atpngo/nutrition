@@ -19,7 +19,8 @@ module.exports = {
         'calories': '#EF476F',
         'fats': '#FBC813',
         'protein': '#06D6A0',
-        'carbohydrates': '#118AB2'
+        'carbohydrates': '#BD4291',
+        'secondary': '#1178B2'
       },
       fontFamily: {
         'rubik': ['Rubik', 'sans-serif']

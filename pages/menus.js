@@ -4,6 +4,8 @@ import Wrapper from "../components/Wrapper";
 import axios from "axios";
 import Carousel from "../components/Carousel";
 import FoodItem from "../components/FoodItem";
+import PanelSkeleton from "../components/PanelSkeleton";
+import Link from "next/link";
 
 const MenusPage = () => {
 
@@ -75,16 +77,16 @@ const MenusPage = () => {
         )
     }, [])
 
-    if (loading)
-    {
-        return(
-            <Wrapper title={"Menus"}>
-                <div className="flex flex-col items-ceenter">
-                    Loading...
-                </div>
-            </Wrapper>
-        )
-    }
+    // if (loading)
+    // {
+    //     return(
+    //         <Wrapper title={"Menus"}>
+    //             <div className="flex flex-col items-ceenter">
+    //                 Loading...
+    //             </div>
+    //         </Wrapper>
+    //     )
+    // }
 
     return(
         <Wrapper title={"Menus"}>
@@ -93,8 +95,13 @@ const MenusPage = () => {
                     {/* Menus from dining halls here */}
                     {/* <button onClick={() => console.log(food)}>Click Me</button> */}
                     <div className="flex flex-col">
-                        <p className="pl-4 text-xl font-bold colored-text">DeNeve</p>
-                        <Carousel length="w-screen">
+                        <div className='flex justify-between pr-4 pb-1 items-center'>
+                            <p className="pl-4 text-xl font-bold colored-text">DeNeve</p>
+                            <Link href='/test'>
+                                <p className="hover:cursor-pointer text-md text-primary-blue">See More</p>
+                            </Link>
+                        </div>
+                        {!loading ? <Carousel length="w-screen">
                             {food["DeNeve"].map(
                                 item => {
                                     if (item.name !== undefined)
@@ -104,11 +111,23 @@ const MenusPage = () => {
                                             imgUrl={item.image}
                                             name={item.name}
                                             nutrition={item.nutrition_info}
+                                            
                                         />
                                     }
                                 }
                             )}
                         </Carousel>
+                        :
+
+                        <Carousel length="w-screen">
+                            {/* {[1,2,3,4,5].map((val, index) => {
+                                <PanelSkeleton key={index}/>
+                            })} */}
+                            <PanelSkeleton/>
+                            <PanelSkeleton/>
+                            <PanelSkeleton/>
+                        </Carousel>
+                        }   
                     </div>
                 </div>
             </div>
