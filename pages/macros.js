@@ -50,7 +50,7 @@ const Macros = () => {
     {
         return (
             <Wrapper title={"Macronutrients"}>
-                <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-4 px-4">
                     <Panel title="Resting Metabolic Rate">
                         <div className="text-center">
                             <p className="text-calories text-5xl">{parseFloat(userData.nutrition.RMR).toFixed(0)} cal</p>

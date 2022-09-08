@@ -10,8 +10,8 @@ function FoodListItem({food, setNutrition})
     const [value, setValue] = useState(0);
 
     useEffect(() => {
-
-    }, [value])
+        // console.log('Food', typeof food, food)
+    }, [])
 
     return (
         <div className='flex flex-row justify-between items-center'>

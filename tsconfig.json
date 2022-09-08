@@ -29,7 +29,7 @@
     "components/NavBar.js",
     "pages/menus.js",
     "utils/connection.js"
-  ],
+, "pages/test.js"  ],
   "exclude": [
     "node_modules"
   ]

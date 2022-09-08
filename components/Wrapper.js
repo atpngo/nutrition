@@ -13,7 +13,7 @@ const Wrapper = ({title, children}) => {
                 }
                 }><IoMdExit size="2em"/></button>
             </div>
-            <div className="pt-4 px-4">
+            <div className="pt-4">
                 {children}
             </div>
         </div>
