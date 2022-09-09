@@ -74,21 +74,44 @@ img {
 /* SCROLLBAR */
 
 /* total width */
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   @apply bg-white w-[16px];
 }
 
 /* background of the scrollbar except button or resizer */
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   @apply bg-light-bg dark:bg-dark-bg;
 }
 
 /* scrollbar itself */
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   @apply bg-[#B9B8BB] dark:bg-[#555555] rounded-[16px] border-[6px] border-solid border-light-bg dark:border-dark-bg;
 }
 
 /* set button(top and bottom of the scrollbar) */
-body::-webkit-scrollbar-button {
+*::-webkit-scrollbar-button {
   display:none;
 }
+
+
+
+/* total width */
+.scrollable::-webkit-scrollbar {
+  @apply bg-white w-[3px];
+}
+
+/* background of the scrollbar except button or resizer */
+.scrollable::-webkit-scrollbar-track {
+  @apply colored-primary
+}
+
+/* scrollbar itself */
+.scrollable::-webkit-scrollbar-thumb {
+  @apply bg-[#B9B8BB] dark:bg-[#555555] rounded-[16px] border-solid border-light-bg dark:border-dark-bg;
+}
+
+/* set button(top and bottom of the scrollbar) */
+.scrollable::-webkit-scrollbar-button {
+  display:none;
+}
+

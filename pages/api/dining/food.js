@@ -17,6 +17,11 @@ export default async function getInfo(req, res)
 
             const $ = cheerio.load(html);
 
+            // GET WEBCODES
+            let badges = [];
+            $('.prodwebcode').each((index, val) => {
+                badges.push($(val).text().trim())
+            })
 
             // GET SERVING SIZE
             let servingSize = $('.nfserv').text().split(" ").splice(2)[0]
@@ -75,6 +80,7 @@ export default async function getInfo(req, res)
                 "nutrition_info": nutrition,
                 "ingredients": ingredients,
                 "allergens": allergens,
+                "badges": badges,
                 "image": image
             }
 
