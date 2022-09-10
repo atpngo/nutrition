@@ -100,6 +100,7 @@ img {
   @apply bg-white w-[3px];
 }
 
+
 /* background of the scrollbar except button or resizer */
 .scrollable::-webkit-scrollbar-track {
   @apply colored-primary
@@ -107,11 +108,10 @@ img {
 
 /* scrollbar itself */
 .scrollable::-webkit-scrollbar-thumb {
-  @apply bg-[#B9B8BB] dark:bg-[#555555] rounded-[16px] border-solid border-light-bg dark:border-dark-bg;
+  @apply bg-transparent rounded-[16px] border-solid border-light-bg dark:border-dark-bg;
 }
 
 /* set button(top and bottom of the scrollbar) */
 .scrollable::-webkit-scrollbar-button {
   display:none;
 }
-

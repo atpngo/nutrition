@@ -108,10 +108,7 @@ const MenusPage = () => {
                                     {
                                         return <FoodItem
                                             key={item.name}
-                                            imgUrl={item.image}
-                                            name={item.name}
-                                            nutrition={item.nutrition_info}
-                                            
+                                            food={item}
                                         />
                                     }
                                 }

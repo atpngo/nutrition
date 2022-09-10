@@ -32,8 +32,8 @@ export default async function getInfo(req, res)
             // GET INGREDIENTS
             let ingredInfo = $('.ingred_allergen').text().split("\n");
             // TODO: maybe turn this into an array one day but LATER
-            let ingredients = ingredInfo[1].trim().split(":")[1].trim();
-            let allergens = ingredInfo[2].trim().split(" ").slice(1).map(item => item.replace(",", ""));
+            let ingredients = ingredInfo[1].trim().replace('INGREDIENTS:', '').trim();
+            let allergens = ingredInfo[2].includes("If you have food allergies, it is best to avoid food cooked in our deep fryers due to the risk of cross-contamination.") ?  ingredInfo[2].trim() : ingredInfo[2].trim().split(" ").slice(1).map(item => item.replace(",", ""));
 
             // GET IMAGE
             // search for recipeImage class to see if it has image or not.

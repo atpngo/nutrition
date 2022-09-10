@@ -68,7 +68,7 @@ export default async function getMenu(req, res)
     }
     else {
         return res.json({
-            data: 'Error',
+            data: 'Invalid Request',
             status: 400
         })
     }

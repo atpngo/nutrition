@@ -7,7 +7,7 @@ import Badge from "./Badge"
 function FoodDialog({open, handleClose, food})
 {
     return (
-        <Dialog fullWidth={true} maxWidth={"sm"} open={open} onClose={handleClose} style={{zIndex: 51, border: 'none'}} PaperProps={{ style: {borderRadius: '20px'}}}>
+        <Dialog fullWidth={true} maxWidth={"sm"} open={open} onClose={handleClose} PaperProps={{ style: {borderRadius: '20px'}}}>
             <div className='flex flex-col w-full colored-primary p-4 gap-3 rounded-[15px] border-0'>
                 <img className='object-cover h-[200px] rounded-xl' src={food.image}/>
                 <p className='colored-text text-xl sm:text-2xl'>{food.name}</p>
@@ -48,17 +48,18 @@ function FoodDialog({open, handleClose, food})
                 </div>
 
                 {/* BADGES HERE */}
-                <div className='flex justify-around colored-bg rounded-lg py-2'>
+                { food.badges.filter(val => !val.includes('Contains')).length > 0 && <div className='flex justify-around colored-bg rounded-lg py-2'>
                     {food.badges.filter(val => !val.includes('Contains')).map((badge, index) => {
                         return <Badge key={index} size={25} className='colored-text' value={badge}/>
                     })}
-                </div>
+                </div>}
 
                 {/* Allergens */}
-                <div className='flex flex-col '>
+                {food.allergens.length ? <div className='flex flex-col '>
                     <p className='colored-text'>Allergens</p>
-                    <p className='text-[#9B9B9B] max-h-[125px] overflow-auto scrollable'>{food.allergens.join(', ')}</p>
+                    <p className='text-[#9B9B9B] max-h-[125px] overflow-auto scrollable'>{(typeof food.allergens === 'object') ? food.allergens.join(', ') : food.allergens}</p>
                 </div>
+                : <></>}
 
                 {/* Ingredients */}
                 <div className='flex flex-col '>
