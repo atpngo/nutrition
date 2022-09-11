@@ -11,7 +11,7 @@ function Carousel({children, length})
     useEffect(() => {
         setWidth(carousel.current.scrollWidth-carousel.current.offsetWidth+8);
         setWidth(carousel.current.scrollWidth-carousel.current.offsetWidth+8);
-    }, [children])
+    }, [children, carousel])
 
     return (    
         // outer carousel

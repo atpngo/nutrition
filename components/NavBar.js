@@ -1,6 +1,6 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { CgProfile } from "react-icons/cg";
 import { RiMentalHealthFill } from "react-icons/ri"
@@ -28,7 +28,9 @@ const NavBar = () => {
 
     const [selected, setSelected] = useState('/profile');
 
-    
+    useEffect(() => {
+        setSelected(window.location.pathname)
+    }, [])
 
     return (
         <IconContext.Provider value={{}}>
@@ -41,13 +43,13 @@ const NavBar = () => {
                             color={selected === '/menus' ? '3CCEEE' : 'gray'}
                         />
                     </IconWrapper>
-                    <IconWrapper href="/mealtime">
+                    {/* <IconWrapper href="/mealtime">
                         <GiForkKnifeSpoon 
                             size="1em"
                             onClick={() => {setSelected('/mealtime')}}
                             color={selected === '/mealtime' ? '3CCEEE' : 'gray'}
                         />
-                    </IconWrapper>
+                    </IconWrapper> */}
                     <IconWrapper href="/macros">
                         <FiTarget 
                             size="1em"

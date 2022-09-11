@@ -6,75 +6,161 @@ import Carousel from "../components/Carousel";
 import FoodItem from "../components/FoodItem";
 import PanelSkeleton from "../components/PanelSkeleton";
 import Link from "next/link";
+import { GiConsoleController } from "react-icons/gi";
+
+// Relevant locations
+const relevantLocations = {
+    'DeNeve': ["The Front Burner", "The Kitchen", "The Grill"],
+    'Rieber': ["Bruin Wok", "Spice Kitchen", "Iron Grill"],
+    'Bruin Plate': ["Freshly Bowled", "Harvest", "Simply Grilled"],
+    'Epicuria': ["Psistaria", "Mezze", "Alimenti"]
+}
+
+const getCurrentMealPeriod = () => {
+    let mealPeriod;
+    let time24h = new Date().toLocaleTimeString('en-US', {hour12: false});
+    let hour = parseFloat(time24h.split(':')[0]);
+    if (hour < 10)
+    {
+        mealPeriod = 'Breakfast';
+    }
+    else if (hour < 15)
+    {
+        mealPeriod = 'Lunch';
+    }
+    else
+    {
+        mealPeriod = 'Dinner'
+    }
+
+    return mealPeriod;
+}
 
 const MenusPage = () => {
 
-    const [food, setFood] = useState({
-        "DeNeve": [],
-        "Rieber": [],
-        "BCafe Bangers": []
-    });
+    const [food, setFood] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [locations, setLocations] = useState([]);
+    const [locationLoad, setLocationLoad] = useState(true);
 
     useEffect(() => {
+        setLocations(null);
+        setLoading(true);
+        setLocationLoad(true);
+        let foodDict = {};
 
-        setFood({
-            "DeNeve": [],
-            "Rieber": [],
-            "BCafe Bangers": []
-        })
-
-        axios.post("/api/dining/menu", {"dining_hall": "Rieber", "meal_period": "Dinner"})
+        // axios get the current open dining halls
+        axios.get('/api/dining/schedule')
         .then(
             res => {
-                let foodItems = res.data.data;
-                let promises = []
-                for (const item of foodItems["Bruin Wok"])
+                const currentMealPeriod = getCurrentMealPeriod();
+                const openDiningHalls = res.data.data[currentMealPeriod];
+                setLocationLoad(false);
+                setLocations(openDiningHalls);
+                let diningHallMenuPromises = [];
+                // get the menus of each dining hall open in the current meal period
+                for (const openHall of openDiningHalls)
                 {
-                    promises.push(axios.post("/api/dining/food", {"url": item.url}));
+                    diningHallMenuPromises.push(axios.post('/api/dining/menu', {'dining_hall': openHall, 'meal_period': currentMealPeriod}));
                 }
 
-                for (const item of foodItems["Spice Kitchen"])
-                {
-                    promises.push(axios.post("/api/dining/food", {"url": item.url}));
-                }
-
-                for (const item of foodItems["Iron Grill"])
-                {
-                    promises.push(axios.post("/api/dining/food", {"url": item.url}));
-                }
-
-                // for (const item of foodItems["Sweets"])
-                // {
-                //     promises.push(axios.post("/api/dining/food", {"url": item.url}));
-                // }
-
-
-                // for (const item of [{url: 'https://menu.dining.ucla.edu/Recipes/077010/1'}, {url: "https://menu.dining.ucla.edu/Recipes/087073/1"}, {url: "https://menu.dining.ucla.edu/Recipes/125007/1"}])
-                // {
-                //     promises.push(axios.post("/api/dining/food", {"url": item.url}))
-                // }
-
-                Promise.all(promises).then
-                (
+                // after fetching all the data
+                Promise.all(diningHallMenuPromises)
+                .then(
                     res => {
-                        res.map(
-                            response => {
-                                setFood((prevState) => {
-                                    let copy = {...prevState};
-                                    copy["DeNeve"].push(response.data.data);
-                                    return copy;
-                                })
+                        // start constructing an object where the key is the dining hall
+                        // the value is a list of objects that contain nutritional info for the relevant food in the dining hall
+                        let promises = [];
+                        res.forEach(response => {
+                            let foodItems = response.data.data;
+                            let diningHall = response.data.name;
+                            foodDict[diningHall] = [];
+                            for (const location of relevantLocations[diningHall])
+                            {
+                                for (const item of foodItems[location])
+                                {
+                                    let promise = axios.post('/api/dining/food', {'url': item.url});
+                                    foodDict[diningHall].push(promise);
+                                    promises.push(promise);
+                                }
                             }
-                        );
-                        setLoading(false);
+                        })
+
+                        // turn object of Location: [Promise Array] into Location: [Food Data array]
+                        Promise.all(promises).then(
+                            res => {
+                                let final = {};
+                                Object.keys(foodDict).forEach(
+                                    (loc, index) => {
+                                        let resolvedPromises = [];
+                                        Promise.all(foodDict[loc]).then(
+                                            promiseArr => {
+                                                promiseArr.forEach(
+                                                    (fulfilledPromise, index) => {
+                                                        if (fulfilledPromise.data.data !== 'Error')
+                                                        {
+                                                            resolvedPromises.push(fulfilledPromise.data.data)
+                                                        }
+                                                    }
+                                                )
+                                            }
+                                        )
+                                        final[loc] = resolvedPromises;
+                                    }
+                                );
+                                setFood(final);
+                                setLoading(false);
+                            }
+                        )
                     }
                 )
             }
         )
-        .catch(
-            err => console.log(err)
-        )
+        
+        // for each dining hall in the current/next meal period
+        // do this? find an array of the most relevant locations
+        // axios.post("/api/dining/menu", {"dining_hall": "Rieber", "meal_period": "Dinner"})
+        // .then(
+        //     res => {
+        //         let foodItems = res.data.data;
+        //         let promises = []
+        //         for (const location of relevantLocations["Rieber"])
+        //         {
+        //             for (const item of foodItems[location])
+        //             {
+        //                 promises.push(axios.post("/api/dining/food", {"url": item.url}));
+        //             }
+        //         }
+        
+
+
+        //         // for (const item of [{url: 'https://menu.dining.ucla.edu/Recipes/077010/1'}, {url: "https://menu.dining.ucla.edu/Recipes/087073/1"}, {url: "https://menu.dining.ucla.edu/Recipes/125007/1"}])
+        //         // {
+        //         //     promises.push(axios.post("/api/dining/food", {"url": item.url}))
+        //         // }
+
+        //         // do the promise stuff like you did in test.js
+
+        //         Promise.all(promises).then
+        //         (
+        //             res => {
+        //                 res.map(
+        //                     response => {
+        //                         setFood((prevState) => {
+        //                             let copy = {...prevState};
+        //                             copy["DeNeve"].push(response.data.data);
+        //                             return copy;
+        //                         })
+        //                     }
+        //                 );
+        //                 setLoading(false);
+        //             }
+        //         )
+        //     }
+        // )
+        // .catch(
+        //     err => console.log(err)
+        // )
     }, [])
 
     // if (loading)
@@ -94,38 +180,45 @@ const MenusPage = () => {
                 <div className="flex flex-col items-center">
                     {/* Menus from dining halls here */}
                     {/* <button onClick={() => console.log(food)}>Click Me</button> */}
-                    <div className="flex flex-col">
-                        <div className='flex justify-between pr-4 pb-1 items-center'>
-                            <p className="pl-4 text-xl font-bold colored-text">DeNeve</p>
-                            <Link href='/test'>
-                                <p className="hover:cursor-pointer text-md text-primary-blue">See More</p>
-                            </Link>
-                        </div>
-                        {!loading ? <Carousel length="w-screen">
-                            {food["DeNeve"].map(
-                                item => {
-                                    if (item.name !== undefined)
-                                    {
-                                        return <FoodItem
-                                            key={item.name}
-                                            food={item}
-                                        />
-                                    }
-                                }
-                            )}
-                        </Carousel>
-                        :
+                    {locations && locations.map(
+                        (item, index) => {
+                            return (
+                                <div key={index} className="flex flex-col">
+                                    <div className='flex justify-between pr-4 pb-1 items-center'>
+                                        <p className="pl-4 text-xl font-bold colored-text">Rieber</p>
+                                        <Link href='/test'>
+                                            <p className="hover:cursor-pointer text-md text-primary-blue">See More</p>
+                                        </Link>
+                                    </div>
+                                    {!loading ? <Carousel length="w-screen">
+                                        {food['Rieber'].map(
+                                            item => {
+                                                if (item.name !== undefined)
+                                                {
+                                                    return <FoodItem
+                                                        key={item.name}
+                                                        food={item}
+                                                    />
+                                                }
+                                            }
+                                        )}
+                                    </Carousel>
+                                    :
 
-                        <Carousel length="w-screen">
-                            {/* {[1,2,3,4,5].map((val, index) => {
-                                <PanelSkeleton key={index}/>
-                            })} */}
-                            <PanelSkeleton/>
-                            <PanelSkeleton/>
-                            <PanelSkeleton/>
-                        </Carousel>
-                        }   
-                    </div>
+                                    <Carousel length="w-screen">
+                                        {/* {[1,2,3,4,5].map((val, index) => {
+                                            <PanelSkeleton key={index}/>
+                                        })} */}
+                                        <PanelSkeleton/>
+                                        <PanelSkeleton/>
+                                        <PanelSkeleton/>
+                                    </Carousel>
+                                    }   
+                                </div>
+                            )
+                        }
+                    )}
+                    
                 </div>
             </div>
         </Wrapper>

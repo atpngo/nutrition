@@ -8,7 +8,6 @@ const removeDuplicates = (arr, key) =>
      * Removes duplicate objects from array
      */
     return arr.filter((v,i,a)=>a.findIndex(v2=>(v2[key]===v[key]))===i);
-
 }
 
 export default async function getMenu(req, res)
@@ -56,6 +55,7 @@ export default async function getMenu(req, res)
             return res.json({
                 status: 200,
                 data: PAYLOAD,
+                name: diningHall
             })
         }
         catch
