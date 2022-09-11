@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 
-const validLocations = ['Rieber', 'De Neve', 'Epicuria', 'Bruin Plate']
+const validLocations = ['Rieber', 'DeNeve', 'Epicuria', 'BruinPlate']
 
 export default async function getSchedule(req, res)
 {
@@ -20,7 +20,7 @@ export default async function getSchedule(req, res)
                     $(tableRow).find($('.hours-location')).each(
                         (index, locations) => {
                             // location name
-                            let location = $(locations).text();
+                            let location = $(locations).text().split(" ").join("");
                             if (validLocations.includes(location))
                             {
                                 // Breakfast

@@ -6,15 +6,8 @@ import Carousel from "../components/Carousel";
 import FoodItem from "../components/FoodItem";
 import PanelSkeleton from "../components/PanelSkeleton";
 import Link from "next/link";
-import { GiConsoleController } from "react-icons/gi";
 
-// Relevant locations
-const relevantLocations = {
-    'DeNeve': ["The Front Burner", "The Kitchen", "The Grill"],
-    'Rieber': ["Bruin Wok", "Spice Kitchen", "Iron Grill"],
-    'Bruin Plate': ["Freshly Bowled", "Harvest", "Simply Grilled"],
-    'Epicuria': ["Psistaria", "Mezze", "Alimenti"]
-}
+
 
 const getCurrentMealPeriod = () => {
     let mealPeriod;
@@ -38,8 +31,17 @@ const getCurrentMealPeriod = () => {
 
 const MenusPage = () => {
 
+    // Relevant locations
+    const relevantLocations = {
+        'DeNeve': ["The Front Burner", "The Kitchen", "The Grill"],
+        'Rieber': ["Bruin Wok", "Spice Kitchen", "Iron Grill"],
+        'BruinPlate': ["Freshly Bowled", "Harvest", "Simply Grilled"],
+        'Epicuria': ["Psistaria", "Mezze", "Alimenti"]
+    }
+
     const [food, setFood] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
     const [locations, setLocations] = useState([]);
     const [locationLoad, setLocationLoad] = useState(true);
 
@@ -47,6 +49,7 @@ const MenusPage = () => {
         setLocations(null);
         setLoading(true);
         setLocationLoad(true);
+        
         let foodDict = {};
 
         // axios get the current open dining halls
@@ -72,17 +75,28 @@ const MenusPage = () => {
                         // the value is a list of objects that contain nutritional info for the relevant food in the dining hall
                         let promises = [];
                         res.forEach(response => {
-                            let foodItems = response.data.data;
-                            let diningHall = response.data.name;
-                            foodDict[diningHall] = [];
-                            for (const location of relevantLocations[diningHall])
+                            if (typeof response.data.data === 'object' && JSON.stringify(response.data.data) !== "{}")
                             {
-                                for (const item of foodItems[location])
+                                let foodItems = response.data.data;
+                                let diningHall = response.data.name;
+                                foodDict[diningHall] = [];
+                                for (const location of relevantLocations[diningHall])
                                 {
-                                    let promise = axios.post('/api/dining/food', {'url': item.url});
-                                    foodDict[diningHall].push(promise);
-                                    promises.push(promise);
+                                    // sometimes relevant locatio isn't
+                                    if (foodItems.hasOwnProperty(location)){
+                                        for (const item of foodItems[location])
+                                        {
+                                            let promise = axios.post('/api/dining/food', {'url': item.url});
+                                            foodDict[diningHall].push(promise);
+                                            promises.push(promise);
+                                        }
+                                    }
+                                    
                                 }
+                            }
+                            else
+                            {
+                                setError(true);
                             }
                         })
 
@@ -185,13 +199,13 @@ const MenusPage = () => {
                             return (
                                 <div key={index} className="flex flex-col">
                                     <div className='flex justify-between pr-4 pb-1 items-center'>
-                                        <p className="pl-4 text-xl font-bold colored-text">Rieber</p>
+                                        <p className="pl-4 text-xl font-bold colored-text">{item}</p>
                                         <Link href='/test'>
                                             <p className="hover:cursor-pointer text-md text-primary-blue">See More</p>
                                         </Link>
                                     </div>
                                     {!loading ? <Carousel length="w-screen">
-                                        {food['Rieber'].map(
+                                        {food[item] && food[item].map(
                                             item => {
                                                 if (item.name !== undefined)
                                                 {
