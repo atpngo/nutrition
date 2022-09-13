@@ -4,7 +4,6 @@ import Wrapper from '../components/Wrapper';
 import CircularProgress from '../components/CircularProgress';
 import FoodListItem from '../components/FoodListItem';
 import MacroBar from '../components/MacroBar';
-
 import { BiCog } from 'react-icons/bi'
 import axios from 'axios';
 

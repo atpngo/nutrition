@@ -25,6 +25,11 @@ const getCurrentMealPeriod = () => {
     {
         mealPeriod = 'Dinner'
     }
+    // past 9pm => breakfast
+    if (hour > 21)
+    {
+        mealPeriod = 'Breakfast';
+    }
 
     return mealPeriod;
 }
@@ -43,9 +48,11 @@ const MenusPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [locations, setLocations] = useState([]);
+    const [period, setPeriod] = useState('');
     const [locationLoad, setLocationLoad] = useState(true);
 
     useEffect(() => {
+        setPeriod(getCurrentMealPeriod() + ' Menus')
         setLocations(null);
         setLoading(true);
         setLocationLoad(true);
@@ -189,7 +196,7 @@ const MenusPage = () => {
     // }
 
     return(
-        <Wrapper title={"Menus"}>
+        <Wrapper title={period}>
             <div className="">
                 <div className="flex flex-col items-center">
                     {/* Menus from dining halls here */}
@@ -200,8 +207,13 @@ const MenusPage = () => {
                                 <div key={index} className="flex flex-col">
                                     <div className='flex justify-between pr-4 pb-1 items-center'>
                                         <p className="pl-4 text-xl font-bold colored-text">{item}</p>
-                                        <Link href='/test'>
-                                            <p className="hover:cursor-pointer text-md text-primary-blue">See More</p>
+                                        <Link href='/mealtime'>
+                                            <p  onClick={
+                                                () => {
+                                                    // set sessionStorage key here
+                                                    sessionStorage.setItem('diningHall', item);
+                                                }
+                                            } className="hover:cursor-pointer text-md text-primary-blue">See More</p>
                                         </Link>
                                     </div>
                                     {!loading ? <Carousel length="w-screen">
