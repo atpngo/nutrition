@@ -232,12 +232,10 @@ const MenusPage = () => {
                                     :
 
                                     <Carousel length="w-screen">
-                                        {/* {[1,2,3,4,5].map((val, index) => {
-                                            <PanelSkeleton key={index}/>
-                                        })} */}
-                                        <PanelSkeleton/>
-                                        <PanelSkeleton/>
-                                        <PanelSkeleton/>
+                                        {Array.from(Array(10).keys()).map((val, index) => {
+                                            return <PanelSkeleton key={index}/>
+                                        })}
+                                        
                                     </Carousel>
                                     }   
                                 </div>

@@ -3,6 +3,7 @@ import Panel from "../components/Panel"
 import Wrapper from '../components/Wrapper';
 import CircularProgress from '../components/CircularProgress';
 import FoodListItem from '../components/FoodListItem';
+import Loading from '../components/Loading';
 import MacroBar from '../components/MacroBar';
 import { BiCog } from 'react-icons/bi'
 import axios from 'axios';
@@ -183,7 +184,9 @@ const Mealtime = () => {
 
     if (loading || !diningHall)
     {
-      return <div>Loading...</div>
+        return (
+            <Loading/>
+        )
     }
 
     if (!userData)

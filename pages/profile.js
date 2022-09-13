@@ -1,4 +1,4 @@
-import { getSession, useSession  } from "next-auth/react"
+import { getSession, signOut, useSession  } from "next-auth/react"
 import CustomSelect from "../components/CustomSelect";
 import CustomInput from "../components/CustomInput";
 import { motion } from "framer-motion";
@@ -244,9 +244,7 @@ const Profile = (props) => {
     if (loading)
     {
         return (
-            <Wrapper title={"Profile"}>
-                {/* <Loading/> */}
-            </Wrapper>
+            <Loading/>
         )
     }
     
@@ -329,15 +327,26 @@ const Profile = (props) => {
 
 
 
-                    <div className='flex justify-center pt-4'>
+                    <div className='flex gap-4 justify-center pt-4'>
                         {editing ? 
-                            <motion.button disabled={!validInputs(userData)} whileTap={{scale: 0.9}} className='disabled:border-gray-200 disabled:text-gray-200 border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false); saveChanges();}}>SAVE CHANGES</motion.button>
+                            <motion.button whileHover={{scale: (validInputs(userData) ? 1.1 : 1)}} disabled={!validInputs(userData)} whileTap={{scale: (validInputs(userData) ? 0.9 : 1)}} className='disabled:border-gray-200 disabled:text-gray-200 border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(false); saveChanges();}}>SAVE CHANGES</motion.button>
                             :
-                            <motion.button whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(true)}}>EDIT</motion.button>
+                            <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className='border-2 border-primary-blue px-4 py-2 rounded-lg text-primary-blue' onClick={() => {setEditing(true)}}>EDIT</motion.button>
                         }
                             {/* <motion.button whileTap={{scale: 0.9}} className='border-2 border-gray-400 px-4 py-2 rounded-lg text-gray-400' onClick={() => {console.log(userData)}}>DEBUG</motion.button> */}
-
+                            {editing && <motion.button whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className='border-2 border-red-500 px-4 py-2 rounded-lg text-red-500' onClick={() => {
+                                axios.post('/api/user/delete', {key: process.env.NEXT_PUBLIC_SECRET_KEY, email: session.user.email, payload: userData})
+                                .then(
+                                    res => {
+                                        localStorage.clear()
+                                        signOut();
+                                    }
+                                )
+                            }}>DELETE ACCOUNT</motion.button>}
+                        
                     </div>
+
+                    
 
 
                 </div>
@@ -348,7 +357,11 @@ const Profile = (props) => {
     else
     {
         return (
-            <div>not logged in</div>
+            <Wrapper title="Error">
+                <div className='flex flex-col text-center justify-center h-[700px]'>
+                    <p className='text-2xl colored-text'>Please log in!</p>
+                </div>
+            </Wrapper>
         )
     }
 }

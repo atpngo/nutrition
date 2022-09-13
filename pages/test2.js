@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Wrapper from '../components/Wrapper'
+import Loading from '../components/Loading'
+import PanelSkeleton from '../components/PanelSkeleton'
 import FoodDialog from '../components/FoodDialog'
 import { Tooltip } from '@mui/material';
-
+import Script from 'next/script';
 
 function Test2()
 {
@@ -34,10 +36,10 @@ function Test2()
         "image": "https://menu.dining.ucla.edu//Content/Images/RecipeImages/977029.jpg"
     }
     return (
-        <Wrapper title="Test 2">
-            <button className='generic-btn' onClick={() => setOpen(true)}>Click to Open</button>
-            <FoodDialog open={open} handleClose={() => setOpen(false)} food={food}/>
-        </Wrapper>
+        // <Wrapper title="Test2">
+        <Loading/>
+        // </Wrapper>
+        // <PanelSkeleton/>
     )
 }
 

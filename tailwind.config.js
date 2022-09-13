@@ -20,7 +20,8 @@ module.exports = {
         'fats': '#FBC813',
         'protein': '#06D6A0',
         'carbohydrates': '#BD4291',
-        'secondary': '#1178B2'
+        'secondary': '#1178B2',
+        'opaque': 'rgb(0,0,0,0.21)',
       },
       fontFamily: {
         'rubik': ['Rubik', 'sans-serif']
