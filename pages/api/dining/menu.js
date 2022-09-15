@@ -1,5 +1,5 @@
 const cheerio = require('cheerio');
-const validDiningHall = ['DeNeve', 'Rieber'];
+const validDiningHall = ['DeNeve', 'Rieber', 'Epicuria', 'BruinPlate'];
 const validMealPeriod = ['Breakfast', 'Lunch', 'Dinner']
 
 const removeDuplicates = (arr, key) =>

@@ -71,6 +71,7 @@ const MenusPage = () => {
                 // get the menus of each dining hall open in the current meal period
                 for (const openHall of openDiningHalls)
                 {
+                    console.log(openHall)
                     diningHallMenuPromises.push(axios.post('/api/dining/menu', {'dining_hall': openHall, 'meal_period': currentMealPeriod}));
                 }
 
@@ -82,6 +83,7 @@ const MenusPage = () => {
                         // the value is a list of objects that contain nutritional info for the relevant food in the dining hall
                         let promises = [];
                         res.forEach(response => {
+                            console.log(response)
                             if (typeof response.data.data === 'object' && JSON.stringify(response.data.data) !== "{}")
                             {
                                 let foodItems = response.data.data;
@@ -97,7 +99,7 @@ const MenusPage = () => {
                                             foodDict[diningHall].push(promise);
                                             promises.push(promise);
                                         }
-                                    }
+                                    }   
                                     
                                 }
                             }
