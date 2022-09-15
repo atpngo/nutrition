@@ -27,10 +27,19 @@ const NavBar = () => {
     const {data: session} = useSession();
 
     const [selected, setSelected] = useState('/profile');
-
+    const [guestMode, setGuestMode] = useState(false);
     useEffect(() => {
         setSelected(window.location.pathname)
+        if (localStorage.hasOwnProperty('guest'))
+        {
+            setGuestMode(JSON.parse(localStorage.getItem('guest')))
+        }
     }, [])
+
+    if (guestMode)
+    {
+        return <></>
+    }
 
     return (
         <IconContext.Provider value={{}}>

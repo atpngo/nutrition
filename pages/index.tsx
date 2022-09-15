@@ -13,7 +13,15 @@ export default function Home() {
   if (session)
   {
     router.push('/profile');
+    if (localStorage.hasOwnProperty('guest'))
+    {
+      localStorage.setItem('guest', 'false');
+    }
   }
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <div className="flex flex-col justify-around items-center h-screen">
@@ -27,6 +35,18 @@ export default function Home() {
           whileTap={{scale: 0.9}}
         >
             <FcGoogle size={35}/><p>SIGN IN</p>
+        </motion.button>
+
+        <motion.button 
+          className="border-[5px] border-secondary rounded-[20px] w-[200px] px-6 py-4 text-2xl text-secondary flex items-center space-around justify-around bg-white" 
+          whileHover={{scale: 1.1}}
+          onClick={() => {
+            router.push('/menus');
+            localStorage.setItem('guest', 'true')
+          }}  
+          whileTap={{scale: 0.9}}
+        >
+          <p>CONTINUE AS GUEST</p>
         </motion.button>
     </div>
   )

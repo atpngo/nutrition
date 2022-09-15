@@ -8,6 +8,7 @@ import MacroBar from '../components/MacroBar';
 import { BiCog } from 'react-icons/bi'
 import axios from 'axios';
 import { useRouter } from "next/router";
+import PieChart from '../components/PieChart';
 
 function validInputs(state)
 {
@@ -217,27 +218,68 @@ const Mealtime = () => {
               'carbs': 0
             })}>RESET</button> */}
 
-            {userData && <Panel title={'Nutritive Analysis'}>
+            <Panel title={'Nutritive Analysis'}>
               <div className='flex flex-row gap-4'>
-                {/* calories */}
-                <div className='flex flex-col items-center gap-2'>
-                  <CircularProgress min={0} max={values.calories} current={nutrition.calories} 
-                    iconSize={50} iconColor={"#EF476F"}
-                    className="w-[100px] h-[100px]"
-                  />
-                  <p className='text-calories text-sm'>{nutrition.calories}/{values.calories}cal</p>
-                </div>
+                {userData ?
+                <>
+                  <div className='flex flex-col items-center gap-2'>
+                    <CircularProgress min={0} max={values.calories} current={nutrition.calories} 
+                      iconSize={50} iconColor={"#EF476F"}
+                      className="w-[100px] h-[100px]"
+                    />
+                    <p className='text-calories text-sm'>{nutrition.calories}/{values.calories}cal</p>
+                  </div>
 
-                {/* linear progress bars */}
-                <div className='flex flex-col w-full gap-4'>
-                  {/* protein */}
-                  <MacroBar value={nutrition.protein} max={values.protein} textColor='text-protein' color='bg-protein' title='Protein' text='sm'/>
-                  <MacroBar value={nutrition.fats} max={values.fats} textColor='text-fats' color='bg-fats' title='Fats' text='sm'/>
-                  <MacroBar value={nutrition.carbs} max={values.carbs} textColor='text-carbohydrates' color='bg-carbohydrates' title='Carbs' text='sm'/>
-                  
-                </div>
+                  <div className='flex flex-col w-full gap-4'>
+                    <MacroBar value={nutrition.protein} max={values.protein} textColor='text-protein' color='bg-protein' title='Protein' text='sm'/>
+                    <MacroBar value={nutrition.fats} max={values.fats} textColor='text-fats' color='bg-fats' title='Fats' text='sm'/>
+                    <MacroBar value={nutrition.carbs} max={values.carbs} textColor='text-carbohydrates' color='bg-carbohydrates' title='Carbs' text='sm'/>
+                  </div>
+                </> :
+                <>
+                  <div className="flex gap-10 w-full justify-center">
+                    <div className="flex gap-4">
+                      <div className="flex flex-col">
+                        <div className="flex gap-3">
+                          <p className="text-calories">Calories</p>
+                        </div>
+                        <div className="flex gap-3">
+                          <p className="text-protein">Protein</p>
+                        </div>
+                        <div className="flex gap-3">
+                          <p className="text-fats">Fats</p>
+                        </div>
+                        <div className="flex gap-3">
+                          <p className="text-carbohydrates">Carbs</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col">
+                        <div className="flex gap-3">
+                          <p className="colored-text">{Math.max(0, parseFloat(nutrition.calories.toFixed(1)))}g</p>
+                        </div>
+                        <div className="flex gap-3">
+                          <p className="colored-text">{Math.max(0, parseFloat(nutrition.protein.toFixed(1)))}g</p>
+                        </div>
+                        <div className="flex gap-3">
+                          <p className="colored-text">{Math.max(0, parseFloat(nutrition.fats.toFixed(1)))}g</p>
+                        </div>
+                        <div className="flex gap-3">
+                          <p className="colored-text">{Math.max(0, parseFloat(nutrition.carbs.toFixed(1)))}g</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="w-[100px] h-[100px]">
+                    <PieChart
+                      values={[Math.max(parseFloat(nutrition.protein.toFixed(0)), 0)*4, Math.max(parseFloat(nutrition.fats.toFixed(0)), 0)*9, Math.max(parseFloat(nutrition.carbs.toFixed(0)), 0)*4]}
+                    />
+                    </div>
+                  </div>
+                </>
+                }
               </div>
-            </Panel>}
+            </Panel>
+
 
             <div className='flex flex-col bg-light-primary dark:bg-dark-primary rounded-xl p-4 max-w-[1000px] shadow-sm w-full gap-3'>
               <div className='flex justify-between'>
@@ -252,7 +294,10 @@ const Mealtime = () => {
                       <p className='text-secondary text-xl font-semibold'>{loc}</p>
                       <div className='divide-y divide-[#EEEEEE] dark:divide-[#383838]'>
                         {foodList[loc].map((item, index) => {
-                          return <FoodListItem key={index} setNutrition={setNutrition} food={item} showCounter={userData}/>
+                          return <FoodListItem key={index} setNutrition={setNutrition} food={item} 
+                          showCounter={true}
+                          // showCounter={userData}
+                          />
                         })}
                       </div>
                     </div>
