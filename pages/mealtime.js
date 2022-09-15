@@ -189,18 +189,18 @@ const Mealtime = () => {
         )
     }
 
-    if (!userData)
-    {
-        return (
-            <div>
-                <Wrapper title={"Macronutrients"}>
-                    <div className='flex flex-col text-center justify-center h-[700px]'>
-                    <p className='text-2xl colored-text'>Please fill out your personal information on the Profile page!</p>
-                    </div>
-                </Wrapper>
-            </div>
-        )
-    }
+    // if (!userData)
+    // {
+    //     return (
+    //         <div>
+    //             <Wrapper title={"Macronutrients"}>
+    //                 <div className='flex flex-col text-center justify-center h-[700px]'>
+    //                 <p className='text-2xl colored-text'>Please fill out your personal information on the Profile page!</p>
+    //                 </div>
+    //             </Wrapper>
+    //         </div>
+    //     )
+    // }
 
 
     return (
@@ -217,7 +217,7 @@ const Mealtime = () => {
               'carbs': 0
             })}>RESET</button> */}
 
-            <Panel title={'Nutritive Analysis'}>
+            {userData && <Panel title={'Nutritive Analysis'}>
               <div className='flex flex-row gap-4'>
                 {/* calories */}
                 <div className='flex flex-col items-center gap-2'>
@@ -237,7 +237,7 @@ const Mealtime = () => {
                   
                 </div>
               </div>
-            </Panel>
+            </Panel>}
 
             <div className='flex flex-col bg-light-primary dark:bg-dark-primary rounded-xl p-4 max-w-[1000px] shadow-sm w-full gap-3'>
               <div className='flex justify-between'>
@@ -252,7 +252,7 @@ const Mealtime = () => {
                       <p className='text-secondary text-xl font-semibold'>{loc}</p>
                       <div className='divide-y divide-[#EEEEEE] dark:divide-[#383838]'>
                         {foodList[loc].map((item, index) => {
-                          return <FoodListItem key={index} setNutrition={setNutrition} food={item}/>
+                          return <FoodListItem key={index} setNutrition={setNutrition} food={item} showCounter={userData}/>
                         })}
                       </div>
                     </div>

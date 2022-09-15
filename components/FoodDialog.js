@@ -1,13 +1,20 @@
-import { Dialog } from "@mui/material"
+import { Dialog, DialogActions } from "@mui/material"
 import { GiMeat, GiAvocado } from 'react-icons/gi'
 import { FaBreadSlice } from 'react-icons/fa'
 import { MdLocalFireDepartment } from 'react-icons/md'
 import Badge from "./Badge"
+import { usePrefersColorScheme } from '@anatoliygatt/use-prefers-color-scheme';
+import { useWindowDimensions } from '../utils/Hooks';
+import { AiFillCloseCircle } from 'react-icons/ai'
 
 function FoodDialog({open, handleClose, food})
 {
+    const preferredColorScheme = usePrefersColorScheme();
+    const isDarkColorSchemePreferred = preferredColorScheme === 'dark';
+    const {height, width } = useWindowDimensions();
+
     return (
-        <Dialog fullWidth={true} maxWidth={"sm"} open={open} onClose={handleClose} PaperProps={{ style: {borderRadius: '20px'}}}>
+        <Dialog fullScreen={width < 500} fullWidth={true} maxWidth={"sm"} open={open} onClose={handleClose} PaperProps={{ style: {borderRadius: '20px', backgroundColor: isDarkColorSchemePreferred ? '#1E1E1E' : '#FFFFFF'}}}>
             <div className='flex flex-col w-full colored-primary p-4 gap-3 rounded-[15px] border-0'>
                 <img className='object-cover h-[200px] rounded-xl' src={food.image}/>
                 <p className='colored-text text-xl sm:text-2xl'>{food.name}</p>
@@ -66,6 +73,15 @@ function FoodDialog({open, handleClose, food})
                     <p className='colored-text'>Ingredients</p>
                     <p className='text-[#9B9B9B] max-h-[125px] overflow-auto scrollable'>{food.ingredients}</p>
                 </div>
+
+                {width < 500 && 
+                <div 
+                    className='fixed bottom-5 right-5'
+                    onClick={handleClose}
+                >
+                    <p className='colored-text border-2 border-primary-blue rounded-lg py-2 px-3 colored-primary shadow-xl'>CLOSE</p>
+                </div>
+                }
 
             </div>
         </Dialog>

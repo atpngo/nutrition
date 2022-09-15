@@ -4,7 +4,7 @@ import FoodDialog from './FoodDialog'
 
 const macros = ['total_carbohydrate', 'protein', 'total_fat']
 
-function FoodListItem({food, setNutrition})
+function FoodListItem({food, setNutrition, showCounter})
 {
     // props
     // nutritional info?
@@ -19,11 +19,11 @@ function FoodListItem({food, setNutrition})
         <div className='flex flex-row justify-between items-center'>
             <FoodDialog open={open} handleClose={() => setOpen(false)} food={food}/>
             <p 
-                className='pl-5 text-black dark:text-[#DCDCDC] md:text-[1.3rem] text-[0.9rem] hover:cursor-pointer'
+                className='pl-5 text-black dark:text-[#DCDCDC] md:text-[1.3rem] text-[1rem] hover:cursor-pointer'
                 onClick={() => setOpen(true)}
             >{food.name}</p>
             
-            <div className='flex items-center'>
+            {showCounter && <div className='flex items-center'>
                 <AiOutlineMinus size={20} className='colored-text hover:cursor-pointer'
                     onClick={() => {
                         if (value - 1 >= 0)
@@ -66,7 +66,7 @@ function FoodListItem({food, setNutrition})
                         })
                     }}
                 />
-            </div>
+            </div>}
         </div>
     )
 }

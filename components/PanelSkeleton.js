@@ -5,7 +5,9 @@ import React, { useEffect } from 'react';
 function PanelSkeleton(props)
 {
     const preferredColorScheme = usePrefersColorScheme();
-    if (preferredColorScheme === 'dark')
+    const isDarkColorSchemePreferred = preferredColorScheme === 'dark';
+
+    if (isDarkColorSchemePreferred)
     {
         return (
             <motion.div
