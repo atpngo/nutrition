@@ -12,6 +12,26 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
   return(
     <SessionProvider session={session}>
       <Head>
+        {/* <!-- Primary Meta Tags --> */}
+        <title>BruinBites</title>
+        <meta name="title" content="BruinBites" />
+        <meta name="description" content="Utilizing UCLA dining hall data to help you figure out where to eat next!" />
+
+        {/* <!-- Open Graph / Facebook --> */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://bruinbites.vercel.app/" />
+        <meta property="og:title" content="BruinBites" />
+        <meta property="og:description" content="Utilizing UCLA dining hall data to help you figure out where to eat next!" />
+        <meta property="og:image" content="/bruinbites.png" />
+
+        {/* <!-- Twitter --> */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://bruinbites.vercel.app/" />
+        <meta property="twitter:title" content="BruinBites" />
+        <meta property="twitter:description" content="Utilizing UCLA dining hall data to help you figure out where to eat next!" />
+        <meta property="twitter:image" content="/bruinbites.png" />
+
+        {/* <!-- Meta Tags Generated with https://metatags.io --> */}
         <title>BruinBites</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
