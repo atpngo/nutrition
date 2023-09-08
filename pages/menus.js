@@ -41,6 +41,7 @@ const MenusPage = () => {
         'DeNeve': ["The Front Burner", "The Kitchen", "The Grill"],
         'Rieber': ["Bruin Wok", "Spice Kitchen", "Iron Grill"],
         'BruinPlate': ["Freshly Bowled", "Harvest", "Simply Grilled"],
+        'Sproul': ["Freshly Bowled", "Harvest", "Simply Grilled"],
         'Epicuria': ["Psistaria", "Mezze", "Alimenti"]
     }
 

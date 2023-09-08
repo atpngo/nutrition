@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 
-const validLocations = ['Rieber', 'DeNeve', 'Epicuria', 'BruinPlate']
+const validLocations = ['Rieber', 'DeNeve', 'Epicuria', 'BruinPlate', 'Sproul']
 
 export default async function getSchedule(req, res)
 {

@@ -14,7 +14,7 @@ const Wrapper = ({title, children}) => {
 
                     if (localStorage.hasOwnProperty('guest') && JSON.parse(localStorage.getItem('guest')))
                     {
-                        router.push('/menus')
+                        router.push('/')
                     }
                     else
                     {
